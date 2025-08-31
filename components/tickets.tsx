@@ -102,7 +102,7 @@ export function Tickets() {
       popular: true,
       icon: Zap,
       glowColor: "orange",
-      soldOut: false
+      soldOut: true
     },
     {
       name: "VIP",
