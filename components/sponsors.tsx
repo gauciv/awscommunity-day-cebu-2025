@@ -61,19 +61,35 @@ export function Sponsors() {
       title: 'PLATINUM',
       color: 'bg-gray-50',
       textColor: 'text-black',
-      borderColor: 'border-gray-50'
+      borderColor: 'border-gray-50',
+      glowClass: 'tier-glow-platinum'
     },
     gold: {
       title: 'GOLD',
       color: 'bg-yellow-400',
       textColor: 'text-black',
-      borderColor: 'border-yellow-400'
+      borderColor: 'border-yellow-400',
+      glowClass: 'tier-glow-gold'
     },
     silver: {
       title: 'SILVER',
       color: 'bg-gray-400',
       textColor: 'text-white',
-      borderColor: 'border-gray-400'
+      borderColor: 'border-gray-400',
+      glowClass: 'tier-glow-silver'
+    }
+  }
+
+  const getGlowAnimation = (tierKey: string) => {
+    const glowColors = {
+      platinum: 'rgba(249, 250, 251, 0.6)',
+      gold: 'rgba(250, 204, 21, 0.6)',
+      silver: 'rgba(156, 163, 175, 0.6)'
+    }
+    
+    return {
+      animation: 'dimGlow 3s ease-in-out infinite',
+      '--glow-color': glowColors[tierKey as keyof typeof glowColors]
     }
   }
 
@@ -86,16 +102,17 @@ export function Sponsors() {
       <div className="flex justify-center mb-8">
         <div className="flex items-start">
           {/* Tier Label - uniform width for all tiers */}
-          <div className={`${tier.color} ${tier.textColor} flex items-center justify-center relative shadow-2xl`}
+          <div className={`${tier.color} ${tier.textColor} flex items-center justify-center relative force-animate`}
                style={{
-                 width: '60px',
-                 height: '160px',
-                 clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
-               }}>
+                  width: '60px',
+                  height: '160px',
+                  clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)',
+                  animation: `${tierKey}Glow 3s ease-in-out infinite`
+                }}>
             <h3 className="text-xl font-black tracking-wider transform -rotate-90 whitespace-nowrap" style={{ color: '#000000' }}>
               {tier.title}
             </h3>
-            {/* Subtle glow effect */}
+            {/* Enhanced glow effect */}
             <div className={`absolute inset-0 opacity-20 blur-sm ${tier.color}`}
                  style={{
                    clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
@@ -103,9 +120,11 @@ export function Sponsors() {
           </div>
           
           {/* Sponsors Container */}
-          <div className="flex items-start gap-4 p-3 bg-slate-800/70 backdrop-blur-sm shadow-xl" 
+          <div className="flex items-start gap-4 p-3 bg-slate-800/70 backdrop-blur-sm shadow-xl border border-slate-600/50" 
                style={{
-                 clipPath: 'polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)'
+                 clipPath: 'polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)',
+                 outline: '1px solid rgba(148, 163, 184, 0.3)',
+                 outlineOffset: '2px'
                }}>
             {sponsorList.map((sponsor, index) => (
               <div 
@@ -148,7 +167,38 @@ export function Sponsors() {
       </div>
 
       {/* Custom animations */}
-      <style jsx>{`
+      <style jsx global>{`
+        @keyframes platinumGlow {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4), 0 0 60px rgba(255, 255, 255, 0.2) !important;
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.7), 0 0 90px rgba(255, 255, 255, 0.4) !important;
+          }
+        }
+        @keyframes goldGlow {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.8), 0 0 40px rgba(250, 204, 21, 0.5), 0 0 60px rgba(250, 204, 21, 0.3) !important;
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(250, 204, 21, 1), 0 0 60px rgba(250, 204, 21, 0.8), 0 0 90px rgba(250, 204, 21, 0.5) !important;
+          }
+        }
+        @keyframes silverGlow {
+          0%, 100% { 
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.8), 0 0 40px rgba(192, 192, 192, 0.5), 0 0 60px rgba(192, 192, 192, 0.3) !important;
+          }
+          50% { 
+            box-shadow: 0 0 30px rgba(192, 192, 192, 1), 0 0 60px rgba(192, 192, 192, 0.8), 0 0 90px rgba(192, 192, 192, 0.5) !important;
+          }
+        }
+        /* Override reduced motion for our specific animations */
+        @media (prefers-reduced-motion: reduce) {
+          .force-animate {
+            animation-duration: 3s !important;
+            animation-iteration-count: infinite !important;
+          }
+        }
         @keyframes shimmer {
           0% { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
           50% { opacity: 1; }
