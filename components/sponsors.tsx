@@ -120,11 +120,12 @@ export function Sponsors() {
           </div>
           
           {/* Sponsors Container */}
-          <div className="flex items-start gap-4 p-3 bg-slate-800/70 backdrop-blur-sm shadow-xl border border-slate-600/50" 
+          <div className="flex items-start gap-4 p-3 bg-slate-800/70 backdrop-blur-sm shadow-xl border-2 border-slate-500/60" 
                style={{
                  clipPath: 'polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)',
-                 outline: '1px solid rgba(148, 163, 184, 0.3)',
-                 outlineOffset: '2px'
+                 outline: '2px solid rgba(148, 163, 184, 0.6)',
+                 outlineOffset: '3px',
+                 boxShadow: '0 0 0 1px rgba(148, 163, 184, 0.4), 0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                }}>
             {sponsorList.map((sponsor, index) => (
               <div 
