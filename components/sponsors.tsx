@@ -92,7 +92,7 @@ export function Sponsors() {
                  height: '160px',
                  clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
                }}>
-            <h3 className="text-xl font-black tracking-wider transform -rotate-90 whitespace-nowrap drop-shadow-md">
+            <h3 className="text-xl font-black tracking-wider transform -rotate-90 whitespace-nowrap" style={{ color: '#000000' }}>
               {tier.title}
             </h3>
             {/* Subtle glow effect */}
