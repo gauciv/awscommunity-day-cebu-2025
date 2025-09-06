@@ -83,7 +83,7 @@ export function Sponsors() {
     const tier = tierConfig[tierKey]
     
     return (
-      <div className="flex flex-col md:flex-row gap-0 mb-8">
+      <div className="flex flex-col md:flex-row gap-0 mb-8 max-w-4xl mx-auto">
         {/* Tier Label */}
         <div className={`${tier.color} ${tier.textColor} flex items-center justify-center min-w-[120px] md:min-w-[140px] px-4 py-6 md:py-8`}>
           <h3 className="text-sm md:text-base font-black tracking-wider transform md:-rotate-90 whitespace-nowrap">
@@ -92,26 +92,26 @@ export function Sponsors() {
         </div>
         
         {/* Sponsors Container */}
-        <div className="flex flex-wrap gap-4 md:gap-6 p-4 md:p-6 bg-slate-900/60 border-l-0 md:border-l border-white/10 min-h-[120px] md:min-h-[140px] items-center">
+        <div className="flex flex-wrap gap-4 md:gap-6 p-4 md:p-6 bg-slate-900/60 border-l-0 md:border-l border-white/10 min-h-[120px] md:min-h-[140px] items-center justify-start">
           {sponsorList.map((sponsor, index) => (
             <div 
               key={index} 
-              className={`bg-slate-800/80 backdrop-blur-sm border-2 ${tier.borderColor} rounded-lg p-4 md:p-6 hover:bg-slate-700/80 transition-all duration-300 flex items-center justify-center`}
+              className={`bg-slate-800/90 backdrop-blur-sm border-2 ${tier.borderColor} rounded-lg p-4 md:p-6 hover:bg-slate-700/90 transition-all duration-300 flex items-center justify-center`}
               style={{ 
-                minWidth: '160px',
-                minHeight: '100px',
-                maxWidth: '220px',
-                maxHeight: '120px'
+                minWidth: '180px',
+                minHeight: '120px',
+                width: 'auto',
+                height: 'auto'
               }}
             >
               <Image
                 src={sponsor.logo}
                 alt={sponsor.alt}
-                width={180}
-                height={90}
-                className="w-auto h-auto max-w-full max-h-full object-contain"
+                width={160}
+                height={80}
+                className="w-auto h-auto max-w-[160px] max-h-[80px] object-contain"
                 style={{ 
-                  filter: 'brightness(0.95) contrast(1.1)',
+                  filter: 'brightness(0.95) contrast(1.05)',
                 }}
               />
             </div>
