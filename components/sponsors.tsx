@@ -3,9 +3,24 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
+// Loading skeleton component for sponsor images
+const SponsorImageSkeleton = ({ isNational }: { isNational: boolean }) => (
+  <div 
+    className="bg-slate-700/50 animate-pulse rounded-lg flex items-center justify-center"
+    style={{ 
+      width: isNational ? '250px' : '200px',
+      height: isNational ? '160px' : '130px'
+    }}
+  >
+    <div className="w-8 h-8 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin"></div>
+  </div>
+)
+
 export function Sponsors() {
   const [isVisible, setIsVisible] = useState(false)
   const [activeView, setActiveView] = useState<'national' | 'local'>('national')
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [loadedImages, setLoadedImages] = useState<{[key: string]: boolean}>({})
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,6 +37,22 @@ export function Sponsors() {
 
     return () => observer.disconnect()
   }, [])
+
+  const handleToggle = (view: 'national' | 'local') => {
+    if (view === activeView) return
+    
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setActiveView(view)
+      setTimeout(() => {
+        setIsTransitioning(false)
+      }, 50)
+    }, 150)
+  }
+
+  const handleImageLoad = (sponsorName: string) => {
+    setLoadedImages(prev => ({ ...prev, [sponsorName]: true }))
+  }
 
   const nationalSponsors = {
     platinum: [
@@ -221,19 +252,23 @@ export function Sponsors() {
                   style={{ backgroundColor: tier.particleColor, animationDelay: '1s' }}
                 ></div>
                 
-                <Image
-                  src={sponsor.logo}
-                  alt={sponsor.alt}
-                  width={isNational ? 250 : 200}
-                  height={isNational ? 160 : 130}
-                  className="object-contain relative z-10 filter group-hover:brightness-110 transition-all duration-300"
-                  style={{ 
-                    maxWidth: isNational ? '250px' : '200px',
-                    maxHeight: isNational ? '160px' : '130px',
-                    width: 'auto',
-                    height: 'auto'
-                  }}
-                />
+                {/* Image with loading state */}
+                <div className="relative">
+                  {!loadedImages[sponsor.name] && (
+                    <SponsorImageSkeleton isNational={isNational} />
+                  )}
+                  <Image
+                    src={sponsor.logo}
+                    alt={sponsor.alt}
+                    width={isNational ? 250 : 200}
+                    height={isNational ? 160 : 130}
+                    className={`object-contain relative z-10 filter group-hover:brightness-110 transition-all duration-300 ${
+                      !loadedImages[sponsor.name] ? 'opacity-0 absolute' : 'opacity-100'
+                    }`}
+                    onLoad={() => handleImageLoad(sponsor.name)}
+                    onError={() => handleImageLoad(sponsor.name)}
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -330,7 +365,7 @@ export function Sponsors() {
           <div className="hidden lg:flex justify-center items-center mb-12">
             <div className="flex bg-slate-800/80 backdrop-blur-sm border border-slate-600/50 rounded-lg p-1 shadow-xl">
               <button
-                onClick={() => setActiveView('national')}
+                onClick={() => handleToggle('national')}
                 className={`relative px-6 py-3 rounded-md font-semibold text-sm transition-all duration-300 ease-out ${
                   activeView === 'national'
                     ? 'bg-blue-500 text-white shadow-lg transform translate-y-0'
@@ -340,7 +375,7 @@ export function Sponsors() {
                 National Sponsors
               </button>
               <button
-                onClick={() => setActiveView('local')}
+                onClick={() => handleToggle('local')}
                 className={`relative px-6 py-3 rounded-md font-semibold text-sm transition-all duration-300 ease-out ${
                   activeView === 'local'
                     ? 'bg-green-500 text-white shadow-lg transform translate-y-0'
@@ -367,7 +402,9 @@ export function Sponsors() {
           {/* Desktop: Side by Side Layout */}
           <div className="hidden lg:grid lg:grid-cols-3 gap-12 lg:gap-16">
             {/* Main Showcase Section - Takes 2/3 space */}
-            <div className="lg:col-span-2">
+            <div className={`lg:col-span-2 transition-all duration-300 ease-out ${
+              isTransitioning ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'
+            }`}>
               <div className="text-center mb-12">
                 <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
                   <span className={`bg-gradient-to-r ${
@@ -382,7 +419,7 @@ export function Sponsors() {
                   activeView === 'national' 
                     ? 'from-blue-400 to-cyan-400' 
                     : 'from-green-400 to-blue-400'
-                } mx-auto mb-6`}></div>
+                } mx-auto mb-6 transition-all duration-300 ease-out`}></div>
                 <p className="text-lg text-gray-300 max-w-2xl mx-auto">
                   {activeView === 'national' 
                     ? 'Our prestigious national partners supporting cloud innovation across the Philippines'
@@ -408,7 +445,9 @@ export function Sponsors() {
             </div>
 
             {/* Secondary Sponsors Section - Takes 1/3 space */}
-            <div className="lg:col-span-1">
+            <div className={`lg:col-span-1 transition-all duration-300 ease-out ${
+              isTransitioning ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'
+            }`}>
               <div className="text-center mb-8">
                 <h4 className="text-2xl md:text-3xl font-bold text-gray-400 mb-4">
                   {activeView === 'national' ? 'Local Sponsors' : 'National Sponsors'}
