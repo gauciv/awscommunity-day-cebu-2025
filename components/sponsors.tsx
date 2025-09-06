@@ -83,42 +83,50 @@ export function Sponsors() {
     const tier = tierConfig[tierKey]
     
     return (
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-8">
         <div className="flex items-start">
-          {/* Tier Label - increased height, proper width for vertical text */}
-          <div className={`${tier.color} ${tier.textColor} flex items-center justify-center px-6 min-w-[80px] relative`}
+          {/* Tier Label - uniform width for all tiers */}
+          <div className={`${tier.color} ${tier.textColor} flex items-center justify-center relative shadow-2xl`}
                style={{
+                 width: '100px',
                  height: '160px',
                  clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
                }}>
-            <h3 className="text-lg font-black tracking-wider transform -rotate-90 whitespace-nowrap">
+            <h3 className="text-xl font-black tracking-wider transform -rotate-90 whitespace-nowrap drop-shadow-md">
               {tier.title}
             </h3>
+            {/* Subtle glow effect */}
+            <div className={`absolute inset-0 opacity-20 blur-sm ${tier.color}`}
+                 style={{
+                   clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
+                 }}></div>
           </div>
           
           {/* Sponsors Container */}
-          <div className="flex items-start gap-4 p-4 bg-slate-800/60 backdrop-blur-sm" 
+          <div className="flex items-start gap-4 p-3 bg-slate-800/70 backdrop-blur-sm shadow-xl" 
                style={{
                  clipPath: 'polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px)'
                }}>
             {sponsorList.map((sponsor, index) => (
               <div 
                 key={index} 
-                className={`bg-gray-600 ${tier.borderColor} border-2 hover:bg-gray-500 transition-all duration-300 flex items-center justify-center hover:scale-105 shadow-lg`}
+                className={`bg-gray-600 ${tier.borderColor} border-3 hover:bg-gray-500 transition-all duration-500 flex items-center justify-center hover:scale-105 shadow-lg group relative overflow-hidden`}
                 style={{ 
-                  width: '180px',
-                  height: '120px'
+                  width: '200px',
+                  height: '130px'
                 }}
               >
+                {/* Glow animation on hover */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-30 ${tier.borderColor.replace('border-', 'bg-')} blur-md transition-all duration-500`}></div>
                 <Image
                   src={sponsor.logo}
                   alt={sponsor.alt}
-                  width={160}
-                  height={100}
-                  className="object-contain"
+                  width={190}
+                  height={120}
+                  className="object-contain relative z-10 filter group-hover:brightness-110 transition-all duration-300"
                   style={{ 
-                    maxWidth: '160px',
-                    maxHeight: '100px',
+                    maxWidth: '190px',
+                    maxHeight: '120px',
                     width: 'auto',
                     height: 'auto'
                   }}
@@ -157,7 +165,7 @@ export function Sponsors() {
         <div className="mb-16">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 text-center">
             <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              NATIONAL
+              National Sponsors
             </span>
           </h3>
           <div className="space-y-4">
@@ -170,12 +178,30 @@ export function Sponsors() {
         <div className="mb-16">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 text-center">
             <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-              LOCAL
+              Local Sponsors
             </span>
           </h3>
           <div className="space-y-4">
             {renderSponsorTier('gold', localSponsors.gold)}
             {renderSponsorTier('silver', localSponsors.silver)}
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center">
+          <div className="bg-white/5 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-4">
+              Interested in Sponsoring?
+            </h3>
+            <p className="text-gray-300 mb-6">
+              Join our amazing sponsors and showcase your brand to 200+ cloud enthusiasts
+            </p>
+            <a
+              href="mailto:awscloudclubctu@gmail.com"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg hover:shadow-xl"
+            >
+              Become a Sponsor
+            </a>
           </div>
         </div>
       </div>
