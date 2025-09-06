@@ -59,20 +59,20 @@ export function Sponsors() {
   const tierConfig = {
     platinum: {
       title: 'PLATINUM',
-      color: 'bg-gray-200',
-      textColor: 'text-gray-900',
-      borderColor: 'border-gray-300'
+      color: 'bg-gray-50',
+      textColor: 'text-black',
+      borderColor: 'border-gray-50'
     },
     gold: {
       title: 'GOLD',
       color: 'bg-yellow-400',
-      textColor: 'text-gray-900',
+      textColor: 'text-black',
       borderColor: 'border-yellow-400'
     },
     silver: {
       title: 'SILVER',
-      color: 'bg-gray-300',
-      textColor: 'text-gray-900',
+      color: 'bg-gray-400',
+      textColor: 'text-white',
       borderColor: 'border-gray-400'
     }
   }
@@ -88,7 +88,7 @@ export function Sponsors() {
           {/* Tier Label - uniform width for all tiers */}
           <div className={`${tier.color} ${tier.textColor} flex items-center justify-center relative shadow-2xl`}
                style={{
-                 width: '100px',
+                 width: '60px',
                  height: '160px',
                  clipPath: 'polygon(0 15px, 15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)'
                }}>
