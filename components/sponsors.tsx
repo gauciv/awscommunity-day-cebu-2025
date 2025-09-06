@@ -147,6 +147,18 @@ export function Sponsors() {
         <div className="absolute bottom-32 left-1/3 w-80 h-80 bg-gradient-to-r from-orange-500/8 via-yellow-500/12 to-orange-600/8 rounded-full blur-2xl animate-pulse delay-1000"></div>
       </div>
 
+      {/* Custom animations */}
+      <style jsx>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
+          50% { opacity: 1; }
+          100% { transform: translateX(200%) skewX(-12deg); opacity: 0; }
+        }
+        .animate-shimmer {
+          animation: shimmer 4s ease-in-out infinite;
+        }
+      `}</style>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -161,29 +173,34 @@ export function Sponsors() {
           </p>
         </div>
 
-        {/* National Sponsors */}
+        {/* National and Local Sponsors - Two Column Layout */}
         <div className="mb-16">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 text-center">
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              National Sponsors
-            </span>
-          </h3>
-          <div className="space-y-4">
-            {renderSponsorTier('platinum', nationalSponsors.platinum)}
-            {renderSponsorTier('gold', nationalSponsors.gold)}
-          </div>
-        </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* National Sponsors */}
+            <div>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8 text-center">
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  National Sponsors
+                </span>
+              </h3>
+              <div className="space-y-4">
+                {renderSponsorTier('platinum', nationalSponsors.platinum)}
+                {renderSponsorTier('gold', nationalSponsors.gold)}
+              </div>
+            </div>
 
-        {/* Local Sponsors */}
-        <div className="mb-16">
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 text-center">
-            <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-              Local Sponsors
-            </span>
-          </h3>
-          <div className="space-y-4">
-            {renderSponsorTier('gold', localSponsors.gold)}
-            {renderSponsorTier('silver', localSponsors.silver)}
+            {/* Local Sponsors */}
+            <div>
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8 text-center">
+                <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                  Local Sponsors
+                </span>
+              </h3>
+              <div className="space-y-4">
+                {renderSponsorTier('gold', localSponsors.gold)}
+                {renderSponsorTier('silver', localSponsors.silver)}
+              </div>
+            </div>
           </div>
         </div>
 
