@@ -515,24 +515,6 @@ export function Sponsors() {
             </div>
           </div>
         </div>
-
-        {/* Call to Action */}
-        <div className="text-center">
-          <div className="bg-white/5 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Interested in Sponsoring?
-            </h3>
-            <p className="text-gray-300 mb-6">
-              Join our amazing sponsors and showcase your brand to 200+ cloud enthusiasts
-            </p>
-            <a
-              href="mailto:awscloudclubctu@gmail.com"
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg hover:shadow-xl"
-            >
-              Become a Sponsor
-            </a>
-          </div>
-        </div>
       </div>
     </section>
   )
