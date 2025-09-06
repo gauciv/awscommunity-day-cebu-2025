@@ -110,7 +110,7 @@ export function Sponsors() {
             {sponsorList.map((sponsor, index) => (
               <div 
                 key={index} 
-                className={`bg-gray-600 ${tier.borderColor} border-3 hover:bg-gray-500 transition-all duration-500 flex items-center justify-center hover:scale-105 shadow-lg group relative overflow-hidden`}
+                className={`bg-slate-800/80 ${tier.borderColor} border-3 hover:bg-slate-700/90 transition-all duration-500 flex items-center justify-center hover:scale-105 shadow-lg group relative overflow-hidden backdrop-blur-sm`}
                 style={{ 
                   width: '200px',
                   height: '130px'
