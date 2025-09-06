@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 
 export function Sponsors() {
   const [isVisible, setIsVisible] = useState(false)
+  const [activeView, setActiveView] = useState<'national' | 'local'>('national')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -102,7 +103,7 @@ export function Sponsors() {
     }
   }
 
-  const renderSponsorTier = (tierKey: keyof typeof tierConfig, sponsorList: any[]) => {
+  const renderSponsorTier = (tierKey: keyof typeof tierConfig, sponsorList: any[], isNational: boolean = false) => {
     if (sponsorList.length === 0) return null
     
     const tier = tierConfig[tierKey]
@@ -152,15 +153,15 @@ export function Sponsors() {
         ></div>
 
         <div className="flex items-start relative z-10">
-          {/* Tier Label - enhanced with theme colors */}
+          {/* Tier Label - bigger for national sponsors */}
           <div className={`${tier.color} ${tier.textColor} flex items-center justify-center relative force-animate`}
                style={{
-                  width: '70px',
-                  height: '180px',
+                  width: isNational ? '85px' : '70px',
+                  height: isNational ? '200px' : '180px',
                   clipPath: 'polygon(0 20px, 20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)',
                   animation: `${tierKey}Glow 3s ease-in-out infinite`
                 }}>
-            <h3 className="text-xl font-black tracking-wider transform -rotate-90 whitespace-nowrap" style={{ color: '#000000' }}>
+            <h3 className={`${isNational ? 'text-2xl' : 'text-xl'} font-black tracking-wider transform -rotate-90 whitespace-nowrap`} style={{ color: '#000000' }}>
               {tier.title}
             </h3>
             {/* Enhanced glow effect */}
@@ -170,21 +171,21 @@ export function Sponsors() {
                  }}></div>
           </div>
           
-          {/* Visual Connector */}
+          {/* Visual Connector - bigger for national */}
           <div 
-            className="w-8 h-0.5 self-center relative"
+            className={`${isNational ? 'w-12' : 'w-8'} h-0.5 self-center relative`}
             style={{
               background: `linear-gradient(90deg, ${tier.themeColor} 0%, ${tier.outlineColor} 50%, ${tier.themeColor} 100%)`,
-              marginTop: '90px'
+              marginTop: isNational ? '100px' : '90px'
             }}
           >
             <div 
-              className="absolute w-2 h-2 rounded-full -right-1 -top-0.75"
+              className={`absolute ${isNational ? 'w-3 h-3' : 'w-2 h-2'} rounded-full -right-1 ${isNational ? '-top-1.25' : '-top-0.75'}`}
               style={{ backgroundColor: tier.outlineColor }}
             ></div>
           </div>
           
-          {/* Sponsors Container - with tier-specific outline colors */}
+          {/* Sponsors Container - bigger for national */}
           <div className="flex items-start gap-6 p-4 bg-slate-800/70 backdrop-blur-sm shadow-xl border-2" 
                style={{
                  clipPath: 'polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)',
@@ -198,8 +199,8 @@ export function Sponsors() {
                 key={index} 
                 className={`bg-slate-800/80 border-2 hover:bg-slate-700/90 transition-all duration-500 flex items-center justify-center hover:scale-105 shadow-lg group relative overflow-hidden backdrop-blur-sm rounded-lg`}
                 style={{ 
-                  width: '220px',
-                  height: '140px',
+                  width: isNational ? '280px' : '220px',
+                  height: isNational ? '180px' : '140px',
                   borderColor: tier.outlineColor,
                   boxShadow: `0 0 15px ${tier.themeColor}20, 0 4px 8px rgba(0, 0, 0, 0.3)`
                 }}
@@ -223,12 +224,12 @@ export function Sponsors() {
                 <Image
                   src={sponsor.logo}
                   alt={sponsor.alt}
-                  width={200}
-                  height={130}
+                  width={isNational ? 250 : 200}
+                  height={isNational ? 160 : 130}
                   className="object-contain relative z-10 filter group-hover:brightness-110 transition-all duration-300"
                   style={{ 
-                    maxWidth: '200px',
-                    maxHeight: '130px',
+                    maxWidth: isNational ? '250px' : '200px',
+                    maxHeight: isNational ? '160px' : '130px',
                     width: 'auto',
                     height: 'auto'
                   }}
@@ -313,7 +314,7 @@ export function Sponsors() {
       `}</style>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header - Enhanced */}
+        {/* Section Header with Toggle - Enhanced */}
         <div className="text-center mb-20">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-8 tracking-tight leading-tight">
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 bg-clip-text text-transparent">
@@ -321,9 +322,35 @@ export function Sponsors() {
             </span>
           </h2>
           <div className="w-32 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-400 mx-auto mb-8"></div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
             Thank you to our amazing sponsors who make AWS Community Day Cebu possible
           </p>
+          
+          {/* Interactive Toggle - Simple Design, PC Only */}
+          <div className="hidden lg:flex justify-center items-center mb-12">
+            <div className="flex bg-slate-800/80 backdrop-blur-sm border border-slate-600/50 rounded-lg p-1 shadow-xl">
+              <button
+                onClick={() => setActiveView('national')}
+                className={`relative px-6 py-3 rounded-md font-semibold text-sm transition-all duration-300 ease-out ${
+                  activeView === 'national'
+                    ? 'bg-blue-500 text-white shadow-lg transform translate-y-0'
+                    : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
+                }`}
+              >
+                National Sponsors
+              </button>
+              <button
+                onClick={() => setActiveView('local')}
+                className={`relative px-6 py-3 rounded-md font-semibold text-sm transition-all duration-300 ease-out ${
+                  activeView === 'local'
+                    ? 'bg-green-500 text-white shadow-lg transform translate-y-0'
+                    : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
+                }`}
+              >
+                Local Sponsors
+              </button>
+            </div>
+          </div>
           
           {/* Decorative constellation accent */}
           <div className="flex justify-center items-center mt-8 space-x-2">
@@ -335,38 +362,78 @@ export function Sponsors() {
           </div>
         </div>
 
-        {/* National and Local Sponsors - Enhanced Two Column Layout */}
+        {/* Dynamic Sponsor Showcase - Side by Side Layout */}
         <div className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* National Sponsors */}
-            <div className="space-y-8">
-              <div className="text-center">
-                <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                  <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                    National Sponsors
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+            {/* Main Showcase Section - Takes 2/3 space */}
+            <div className="lg:col-span-2">
+              <div className="text-center mb-12">
+                <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                  <span className={`bg-gradient-to-r ${
+                    activeView === 'national' 
+                      ? 'from-blue-400 to-cyan-400' 
+                      : 'from-green-400 to-blue-400'
+                  } bg-clip-text text-transparent`}>
+                    {activeView === 'national' ? 'National Sponsors' : 'Local Sponsors'}
                   </span>
                 </h3>
-                <div className="w-20 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto mb-6"></div>
+                <div className={`w-24 h-1.5 bg-gradient-to-r ${
+                  activeView === 'national' 
+                    ? 'from-blue-400 to-cyan-400' 
+                    : 'from-green-400 to-blue-400'
+                } mx-auto mb-6`}></div>
+                <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                  {activeView === 'national' 
+                    ? 'Our prestigious national partners supporting cloud innovation across the Philippines'
+                    : 'Amazing local businesses and organizations championing our Cebu tech community'
+                  }
+                </p>
               </div>
-              <div className="space-y-8">
-                {renderSponsorTier('platinum', nationalSponsors.platinum)}
-                {renderSponsorTier('gold', nationalSponsors.gold)}
+
+              {/* Showcased Sponsors */}
+              <div className="space-y-10">
+                {activeView === 'national' ? (
+                  <>
+                    {renderSponsorTier('platinum', nationalSponsors.platinum, true)}
+                    {renderSponsorTier('gold', nationalSponsors.gold, true)}
+                  </>
+                ) : (
+                  <>
+                    {renderSponsorTier('gold', localSponsors.gold, true)}
+                    {renderSponsorTier('silver', localSponsors.silver, true)}
+                  </>
+                )}
               </div>
             </div>
 
-            {/* Local Sponsors */}
-            <div className="space-y-8">
-              <div className="text-center">
-                <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                  <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-                    Local Sponsors
-                  </span>
-                </h3>
-                <div className="w-20 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 mx-auto mb-6"></div>
+            {/* Secondary Sponsors Section - Takes 1/3 space */}
+            <div className="lg:col-span-1">
+              <div className="text-center mb-8">
+                <h4 className="text-2xl md:text-3xl font-bold text-gray-400 mb-4">
+                  {activeView === 'national' ? 'Local Sponsors' : 'National Sponsors'}
+                </h4>
+                <div className="w-16 h-0.5 bg-gray-500 mx-auto mb-4"></div>
+                <p className="text-sm text-gray-500 max-w-xs mx-auto">
+                  {activeView === 'national' 
+                    ? 'Supporting our local Cebu community'
+                    : 'Our national partners'
+                  }
+                </p>
               </div>
-              <div className="space-y-8">
-                {renderSponsorTier('gold', localSponsors.gold)}
-                {renderSponsorTier('silver', localSponsors.silver)}
+
+              {/* Secondary Sponsors - Compact View */}
+              <div className="space-y-6 opacity-75 scale-90 transform">
+                {activeView === 'national' ? (
+                  <>
+                    {renderSponsorTier('gold', localSponsors.gold, false)}
+                    {renderSponsorTier('silver', localSponsors.silver, false)}
+                  </>
+                ) : (
+                  <>
+                    {renderSponsorTier('platinum', nationalSponsors.platinum, false)}
+                    {renderSponsorTier('gold', nationalSponsors.gold, false)}
+                  </>
+                )}
               </div>
             </div>
           </div>
