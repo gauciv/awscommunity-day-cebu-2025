@@ -362,9 +362,10 @@ export function Sponsors() {
           </div>
         </div>
 
-        {/* Dynamic Sponsor Showcase - Side by Side Layout */}
+        {/* Dynamic Sponsor Showcase */}
         <div className="mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+          {/* Desktop: Side by Side Layout */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-12 lg:gap-16">
             {/* Main Showcase Section - Takes 2/3 space */}
             <div className="lg:col-span-2">
               <div className="text-center mb-12">
@@ -434,6 +435,43 @@ export function Sponsors() {
                     {renderSponsorTier('gold', nationalSponsors.gold, false)}
                   </>
                 )}
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile/Tablet: Original Simple Layout */}
+          <div className="lg:hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+              {/* National Sponsors */}
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                      National Sponsors
+                    </span>
+                  </h3>
+                  <div className="w-20 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto mb-6"></div>
+                </div>
+                <div className="space-y-8">
+                  {renderSponsorTier('platinum', nationalSponsors.platinum, false)}
+                  {renderSponsorTier('gold', nationalSponsors.gold, false)}
+                </div>
+              </div>
+
+              {/* Local Sponsors */}
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                      Local Sponsors
+                    </span>
+                  </h3>
+                  <div className="w-20 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 mx-auto mb-6"></div>
+                </div>
+                <div className="space-y-8">
+                  {renderSponsorTier('gold', localSponsors.gold, false)}
+                  {renderSponsorTier('silver', localSponsors.silver, false)}
+                </div>
               </div>
             </div>
           </div>
