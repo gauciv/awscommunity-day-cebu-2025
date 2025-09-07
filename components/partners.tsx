@@ -144,18 +144,18 @@ export function Partners() {
         {communityPartners.map((partner, index) => (
           <div
             key={partner.name}
-            className="group relative overflow-hidden bg-gray-100/80 backdrop-blur-sm shadow-lg hover:shadow-cyan-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-1 border border-gray-300/60"
+            className="group relative overflow-hidden bg-white/90 backdrop-blur-sm shadow-lg hover:shadow-cyan-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-1 border border-cyan-400/20"
             style={{
               clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
               width: '180px',
               height: '100px',
-              animationDelay: `${index * 100}ms`,
-              boxShadow: '0 2px 12px rgba(30,41,59,0.10), 0 0 0 2px #e5e7eb'
+              animationDelay: `${index * 100}ms`
             }}
           >
             {/* Partner glow effects */}
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 pointer-events-none"></div>
             <div className="absolute top-1 right-1 w-0.5 h-0.5 rounded-full bg-cyan-400/50 animate-pulse"></div>
+            
             {/* Image container */}
             <div className="relative w-full h-full flex items-center justify-center p-3">
               {!loadedImages[partner.name] && (
@@ -163,31 +163,27 @@ export function Partners() {
                   <PartnerImageSkeleton size="small" />
                 </div>
               )}
-              <div className="flex items-center justify-center w-full h-full">
-                <Image
-                  src={partner.logo}
-                  alt={partner.alt}
-                  width={160}
-                  height={80}
-                  className={`object-contain filter group-hover:brightness-110 transition-all duration-300 ${
-                    !loadedImages[partner.name] ? 'opacity-0' : 'opacity-100'
-                  }`}
-                  style={{ 
-                    maxWidth: '140px',
-                    maxHeight: '70px',
-                    width: 'auto',
-                    height: 'auto',
-                    mixBlendMode: 'multiply',
-                    filter: 'drop-shadow(0 2px 6px rgba(30,41,59,0.15)) brightness(0.85)'
-                  }}
-                  onLoad={() => handleImageLoad(partner.name)}
-                  onError={() => {
-                    console.error(`Failed to load image: ${partner.logo}`)
-                    handleImageLoad(partner.name)
-                  }}
-                  unoptimized={partner.logo.endsWith('.png')}
-                />
-              </div>
+              <Image
+                src={partner.logo}
+                alt={partner.alt}
+                width={160}
+                height={80}
+                className={`object-contain filter group-hover:brightness-110 transition-all duration-300 ${
+                  !loadedImages[partner.name] ? 'opacity-0' : 'opacity-100'
+                }`}
+                style={{ 
+                  maxWidth: '160px',
+                  maxHeight: '80px',
+                  width: 'auto',
+                  height: 'auto'
+                }}
+                onLoad={() => handleImageLoad(partner.name)}
+                onError={() => {
+                  console.error(`Failed to load image: ${partner.logo}`)
+                  handleImageLoad(partner.name)
+                }}
+                unoptimized={partner.logo.endsWith('.png')}
+              />
             </div>
           </div>
         ))}
@@ -196,7 +192,7 @@ export function Partners() {
   )
 
   return (
-  <section id="partners" className="py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-900 via-blue-900/90 to-slate-900 relative overflow-hidden">
+    <section id="partners" className="py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-900 via-purple-900/90 to-slate-900 relative overflow-hidden">
       {/* Enhanced Background Effects with Dynamic Constellations */}
       <div className="absolute inset-0">
         {/* Gradient orbs with partner theme colors */}
