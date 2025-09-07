@@ -3,18 +3,20 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
-// Loading skeleton component for sponsor images
-const SponsorImageSkeleton = ({ isNational }: { isNational: boolean }) => (
-  <div 
-    className={`bg-slate-700/50 animate-pulse rounded-lg flex items-center justify-center ${
-      isNational 
-        ? 'w-[280px] h-[140px] sm:h-[160px] lg:h-[180px]' 
-        : 'w-[220px] h-[120px] sm:h-[130px] lg:h-[140px]'
-    }`}
-  >
-    <div className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin"></div>
-  </div>
-)
+// Loading skeleton component for partner images
+const PartnerImageSkeleton = ({ size = 'medium' }: { size?: 'small' | 'medium' | 'large' }) => {
+  const sizeClasses = {
+    small: 'w-[180px] h-[100px]',
+    medium: 'w-[220px] h-[120px]',
+    large: 'w-[300px] h-[160px]'
+  }
+  
+  return (
+    <div className={`bg-slate-700/50 animate-pulse rounded-lg flex items-center justify-center ${sizeClasses[size]}`}>
+      <div className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin"></div>
+    </div>
+  )
+}
 
 export function Sponsors() {
   const [isVisible, setIsVisible] = useState(false)
