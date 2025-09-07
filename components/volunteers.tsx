@@ -297,18 +297,19 @@ export function Volunteers() {
           {/* Search Input */}
           <div className="max-w-xs sm:max-w-sm md:max-w-md mx-auto relative px-3 sm:px-0">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10 pointer-events-none" />
               <Input
                 type="text"
                 placeholder="Search volunteers..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-10 bg-white/10 border-white/20 text-white placeholder-gray-400 focus:border-orange-500/50 focus:ring-orange-500/20 text-sm sm:text-base min-h-[44px] touch-manipulation"
+                className="!pl-12 !pr-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-orange-500/50 focus:ring-orange-500/20 text-sm sm:text-base min-h-[44px] touch-manipulation"
+                style={{ paddingLeft: '3rem', paddingRight: '3rem' }}
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors touch-manipulation w-8 h-8 flex items-center justify-center rounded z-10"
                 >
                   <X className="w-4 h-4" />
                 </button>
