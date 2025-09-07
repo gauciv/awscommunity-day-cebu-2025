@@ -28,7 +28,7 @@ export function Navigation() {
           }
 
           // Determine active section with smooth transitions
-          const sections = ["about", "program", "speakers", "tickets", "sponsors", "volunteers"]
+          const sections = ["about", "program", "speakers", "tickets", "sponsors", "partners", "volunteers"]
           const currentSection = sections.find((section) => {
             const element = document.getElementById(section === "program" ? "schedule" : section)
             if (element) {
@@ -60,6 +60,7 @@ export function Navigation() {
     { href: "#speakers", label: "Speakers", id: "speakers" },
     { href: "#tickets", label: "Tickets", id: "tickets" },
     { href: "#sponsors", label: "Sponsors", id: "sponsors" },
+    { href: "#partners", label: "Partners", id: "partners" },
     { href: "#volunteers", label: "Volunteers", id: "volunteers" },
   ]
 

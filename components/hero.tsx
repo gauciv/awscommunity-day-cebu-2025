@@ -389,7 +389,7 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 sm:px-4 py-2 border border-orange-400/30 animate-float-gentle-delayed-2 text-xs sm:text-sm md:text-base">
               <Users className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-orange-400 animate-pulse-subtle flex-shrink-0" />
-              <span className="font-bold text-orange-300 whitespace-nowrap">9 Amazing Speakers</span>
+              <span className="font-bold text-orange-300 whitespace-nowrap">14 Amazing Speakers</span>
             </div>
           </div>
 

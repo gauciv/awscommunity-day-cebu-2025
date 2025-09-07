@@ -73,6 +73,31 @@ export function Speakers() {
       position: "Fullstack Engineer/Project Lead @ TutorialsDojo",
       image: "/images/speakers/rafael-louie-miguel.jpg",
     },
+    {
+      name: "Nhyl Bryle Ibañez",
+      position: "DevSecOps Engineer at Ingenuity Software",
+      image: "/images/speakers/nhyl-bryle-ibanez.jpg",
+    },
+    {
+      name: "Rodrick Alcantara",
+      position: "Software Engineer and Tech Content Creator",
+      image: "/images/speakers/rodrick-alcantara.jpg",
+    },
+    {
+      name: "Ace Kenneth Batacandulo",
+      position: "Cloud Consultant at Tutorials Dojo",
+      image: "/images/speakers/ace-kenneth-batacandulo.jpg",
+    },
+    {
+      name: "Trixie Nicole Organiza",
+      position: "Cloud Engineer Intern at Elevate",
+      image: "/images/speakers/trixie-nicole-organiza.jpg",
+    },
+    {
+      name: "Romar Cablao",
+      position: "AWS Community Builder",
+      image: "/images/speakers/romar-cablao.png",
+    },
   ]
 
   return (
@@ -247,7 +272,9 @@ export function Speakers() {
                         src={speaker.image}
                         alt={speaker.name}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        className={`object-cover transition-transform duration-700 group-hover:scale-110 ${
+                          speaker.name === "Ace Kenneth Batacandulo" ? "object-top" : ""
+                        }`}
                         sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, 144px"
                         loading={index < 4 ? "eager" : "lazy"}
                         priority={index < 2}
