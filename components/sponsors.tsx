@@ -6,13 +6,13 @@ import { useState, useEffect } from 'react'
 // Loading skeleton component for sponsor images
 const SponsorImageSkeleton = ({ isNational }: { isNational: boolean }) => (
   <div 
-    className="bg-slate-700/50 animate-pulse rounded-lg flex items-center justify-center"
-    style={{ 
-      width: isNational ? '250px' : '200px',
-      height: isNational ? '160px' : '130px'
-    }}
+    className={`bg-slate-700/50 animate-pulse rounded-lg flex items-center justify-center ${
+      isNational 
+        ? 'w-[280px] h-[140px] sm:h-[160px] lg:h-[180px]' 
+        : 'w-[220px] h-[120px] sm:h-[130px] lg:h-[140px]'
+    }`}
   >
-    <div className="w-8 h-8 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin"></div>
+    <div className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin"></div>
   </div>
 )
 
@@ -184,15 +184,15 @@ export function Sponsors() {
         ></div>
 
         <div className="flex items-start relative z-10">
-          {/* Tier Label - bigger for national sponsors */}
-          <div className={`${tier.color} ${tier.textColor} flex items-center justify-center relative force-animate`}
+          {/* Tier Label - responsive sizing */}
+          <div className={`${tier.color} ${tier.textColor} flex items-center justify-center relative force-animate ${
+            isNational ? 'w-[60px] sm:w-[70px] lg:w-[85px] h-[120px] sm:h-[160px] lg:h-[200px]' : 'w-[50px] sm:w-[60px] lg:w-[70px] h-[100px] sm:h-[140px] lg:h-[180px]'
+          }`}
                style={{
-                  width: isNational ? '85px' : '70px',
-                  height: isNational ? '200px' : '180px',
                   clipPath: 'polygon(0 20px, 20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)',
                   animation: `${tierKey}Glow 3s ease-in-out infinite`
                 }}>
-            <h3 className={`${isNational ? 'text-2xl' : 'text-xl'} font-black tracking-wider transform -rotate-90 whitespace-nowrap`} style={{ color: '#000000' }}>
+            <h3 className={`${isNational ? 'text-lg sm:text-xl lg:text-2xl' : 'text-base sm:text-lg lg:text-xl'} font-black tracking-wider transform -rotate-90 whitespace-nowrap`} style={{ color: '#000000' }}>
               {tier.title}
             </h3>
             {/* Enhanced glow effect */}
@@ -202,22 +202,22 @@ export function Sponsors() {
                  }}></div>
           </div>
           
-          {/* Visual Connector - bigger for national */}
+          {/* Visual Connector - responsive sizing */}
           <div 
-            className={`${isNational ? 'w-12' : 'w-8'} h-0.5 self-center relative`}
+            className={`${isNational ? 'w-6 sm:w-8 lg:w-12' : 'w-4 sm:w-6 lg:w-8'} h-0.5 self-center relative`}
             style={{
               background: `linear-gradient(90deg, ${tier.themeColor} 0%, ${tier.outlineColor} 50%, ${tier.themeColor} 100%)`,
-              marginTop: isNational ? '100px' : '90px'
+              marginTop: isNational ? '60px' : '50px'
             }}
           >
             <div 
-              className={`absolute ${isNational ? 'w-3 h-3' : 'w-2 h-2'} rounded-full -right-1 ${isNational ? '-top-1.25' : '-top-0.75'}`}
+              className={`absolute ${isNational ? 'w-2 h-2 sm:w-2.5 sm:h-2.5 lg:w-3 lg:h-3' : 'w-1.5 h-1.5 sm:w-2 sm:h-2'} rounded-full -right-1 ${isNational ? '-top-1 sm:-top-1.25' : '-top-0.75'}`}
               style={{ backgroundColor: tier.outlineColor }}
             ></div>
           </div>
           
-          {/* Sponsors Container - bigger for national */}
-          <div className="flex items-start gap-6 p-4 bg-slate-800/70 backdrop-blur-sm shadow-xl border-2" 
+          {/* Sponsors Container - responsive with horizontal scroll on mobile */}
+          <div className="flex items-start gap-3 sm:gap-4 lg:gap-6 p-3 sm:p-4 bg-slate-800/70 backdrop-blur-sm shadow-xl border-2 overflow-x-auto" 
                style={{
                  clipPath: 'polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)',
                  borderColor: tier.outlineColor,
@@ -228,10 +228,12 @@ export function Sponsors() {
             {sponsorList.map((sponsor, index) => (
               <div 
                 key={index} 
-                className={`bg-slate-800/80 border-2 hover:bg-slate-700/90 transition-all duration-500 flex items-center justify-center hover:scale-105 shadow-lg group relative overflow-hidden backdrop-blur-sm rounded-lg`}
+                className={`bg-slate-800/80 border-2 hover:bg-slate-700/90 transition-all duration-500 flex items-center justify-center hover:scale-105 shadow-lg group relative overflow-hidden backdrop-blur-sm rounded-lg flex-shrink-0 ${
+                  isNational 
+                    ? 'w-[280px] h-[140px] sm:h-[160px] lg:h-[180px]' 
+                    : 'w-[220px] h-[120px] sm:h-[130px] lg:h-[140px]'
+                }`}
                 style={{ 
-                  width: isNational ? '280px' : '220px',
-                  height: isNational ? '180px' : '140px',
                   borderColor: tier.outlineColor,
                   boxShadow: `0 0 15px ${tier.themeColor}20, 0 4px 8px rgba(0, 0, 0, 0.3)`
                 }}
@@ -253,9 +255,11 @@ export function Sponsors() {
                 ></div>
                 
                 {/* Image with loading state */}
-                <div className="relative">
+                <div className="relative w-full h-full flex items-center justify-center">
                   {!loadedImages[sponsor.name] && (
-                    <SponsorImageSkeleton isNational={isNational} />
+                    <div className="absolute inset-0 bg-slate-700/50 animate-pulse rounded-lg flex items-center justify-center">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin"></div>
+                    </div>
                   )}
                   <Image
                     src={sponsor.logo}
@@ -263,10 +267,21 @@ export function Sponsors() {
                     width={isNational ? 250 : 200}
                     height={isNational ? 160 : 130}
                     className={`object-contain relative z-10 filter group-hover:brightness-110 transition-all duration-300 ${
-                      !loadedImages[sponsor.name] ? 'opacity-0 absolute' : 'opacity-100'
+                      !loadedImages[sponsor.name] ? 'opacity-0' : 'opacity-100'
                     }`}
+                    style={{ 
+                      maxWidth: isNational ? '250px' : '200px',
+                      maxHeight: isNational ? '160px' : '130px',
+                      width: 'auto',
+                      height: 'auto'
+                    }}
                     onLoad={() => handleImageLoad(sponsor.name)}
-                    onError={() => handleImageLoad(sponsor.name)}
+                    onError={() => {
+                      console.error(`Failed to load image: ${sponsor.logo}`)
+                      handleImageLoad(sponsor.name)
+                    }}
+                    priority={sponsor.name === 'AWS'}
+                    unoptimized={sponsor.logo.endsWith('.svg')}
                   />
                 </div>
               </div>
@@ -478,36 +493,36 @@ export function Sponsors() {
             </div>
           </div>
 
-          {/* Mobile/Tablet: Original Simple Layout */}
-          <div className="lg:hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              {/* National Sponsors */}
-              <div className="space-y-8">
+          {/* Mobile/Tablet: Optimized Responsive Layout */}
+          <div className="lg:hidden px-4">
+            <div className="grid grid-cols-1 gap-12">
+              {/* National Sponsors - Mobile Optimized */}
+              <div className="space-y-6">
                 <div className="text-center">
-                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                     <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                       National Sponsors
                     </span>
                   </h3>
-                  <div className="w-20 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto mb-6"></div>
+                  <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto mb-6"></div>
                 </div>
-                <div className="space-y-8">
+                <div className="space-y-6">
                   {renderSponsorTier('platinum', nationalSponsors.platinum, false)}
                   {renderSponsorTier('gold', nationalSponsors.gold, false)}
                 </div>
               </div>
 
-              {/* Local Sponsors */}
-              <div className="space-y-8">
+              {/* Local Sponsors - Mobile Optimized */}
+              <div className="space-y-6">
                 <div className="text-center">
-                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                     <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
                       Local Sponsors
                     </span>
                   </h3>
-                  <div className="w-20 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 mx-auto mb-6"></div>
+                  <div className="w-16 sm:w-20 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 mx-auto mb-6"></div>
                 </div>
-                <div className="space-y-8">
+                <div className="space-y-6">
                   {renderSponsorTier('gold', localSponsors.gold, false)}
                   {renderSponsorTier('silver', localSponsors.silver, false)}
                 </div>
