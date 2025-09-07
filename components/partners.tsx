@@ -51,6 +51,7 @@ export function Partners() {
 
   // Community Partners
   const communityPartners = [
+    { name: 'AWSCC CTU', logo: '/images/partners/awscc-ctu.png', alt: 'AWS Cloud Club CTU' },
     { name: 'Cisco', logo: '/images/partners/cisco.png', alt: 'Cisco' },
     { name: 'CITSC', logo: '/images/partners/citsc.png', alt: 'CITSC' },
     { name: 'CPEC', logo: '/images/partners/cpec.png', alt: 'CPEC' },
@@ -129,7 +130,7 @@ export function Partners() {
               }}
             >
               {!loadedImages[partner.name] && (
-                <div className="w-24 h-16 bg-slate-700/30 animate-pulse rounded"></div>
+                <div className="w-[144px] h-[96px] bg-slate-700/30 animate-pulse rounded"></div>
               )}
               <Image
                 src={partner.logo}
@@ -140,9 +141,8 @@ export function Partners() {
                   !loadedImages[partner.name] ? 'opacity-0 absolute' : 'opacity-100'
                 }`}
                 style={{ 
-                  width: 'auto',
-                  height: 'auto',
-                  maxHeight: partner.name === 'CISCO' ? '180px' : '110px',
+                  width: '144px',
+                  height: '96px',
                   filter: 'brightness(1.05) contrast(1.05)'
                 }}
                 onLoad={() => handleImageLoad(partner.name)}
