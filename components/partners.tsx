@@ -91,7 +91,7 @@ export function Partners() {
             style={{ 
               width: 'auto',
               height: 'auto',
-              maxHeight: '200px',
+              maxHeight: '230px',
               filter: 'brightness(1.05) contrast(1.05)'
             }}
             onLoad={() => handleImageLoad(venuePartner.name)}
@@ -142,7 +142,7 @@ export function Partners() {
                 style={{ 
                   width: 'auto',
                   height: 'auto',
-                  maxHeight: partner.name === 'CISCO' ? '75px' : '60px',
+                  maxHeight: partner.name === 'CISCO' ? '180px' : '110px',
                   filter: 'brightness(1.05) contrast(1.05)'
                 }}
                 onLoad={() => handleImageLoad(partner.name)}
