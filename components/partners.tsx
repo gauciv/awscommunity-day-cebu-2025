@@ -76,48 +76,31 @@ export function Partners() {
       </div>
 
       <div className="flex justify-center">
-        <div className="group relative overflow-hidden bg-slate-800/90 backdrop-blur-sm shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-2 border-2 border-slate-600/50"
-             style={{
-               clipPath: 'polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)',
-               width: '320px',
-               height: '180px'
-             }}>
-          
-          {/* Venue partner glow effects */}
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 pointer-events-none"></div>
-          <div className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-purple-400/60 animate-pulse"></div>
-          <div className="absolute bottom-2 left-2 w-1 h-1 rounded-full bg-pink-400/60 animate-pulse" style={{ animationDelay: '1s' }}></div>
-          
-          {/* Image container */}
-          <div className="relative w-full h-full flex items-center justify-center p-6">
-            {!loadedImages[venuePartner.name] && (
-              <div className="absolute inset-0">
-                <PartnerImageSkeleton size="large" />
-              </div>
-            )}
-            <Image
-              src={venuePartner.logo}
-              alt={venuePartner.alt}
-              width={280}
-              height={160}
-              className={`object-contain transition-all duration-300 group-hover:scale-105 ${
-                !loadedImages[venuePartner.name] ? 'opacity-0' : 'opacity-100'
-              }`}
-              style={{ 
-                maxWidth: '280px',
-                maxHeight: '160px',
-                width: 'auto',
-                height: 'auto',
-                filter: 'brightness(1.3) contrast(1.2) saturate(1.1) drop-shadow(0 2px 8px rgba(0,0,0,0.4))'
-              }}
-              onLoad={() => handleImageLoad(venuePartner.name)}
-              onError={() => {
-                console.error(`Failed to load image: ${venuePartner.logo}`)
-                handleImageLoad(venuePartner.name)
-              }}
-              unoptimized={venuePartner.logo.endsWith('.png')}
-            />
-          </div>
+        <div className="group transition-all duration-300 hover:scale-105">
+          {!loadedImages[venuePartner.name] && (
+            <div className="w-48 h-32 bg-slate-700/30 animate-pulse rounded"></div>
+          )}
+          <Image
+            src={venuePartner.logo}
+            alt={venuePartner.alt}
+            width={600}
+            height={500}
+            className={`object-contain transition-all duration-300 ${
+              !loadedImages[venuePartner.name] ? 'opacity-0 absolute' : 'opacity-100'
+            }`}
+            style={{ 
+              width: 'auto',
+              height: 'auto',
+              maxHeight: '200px',
+              filter: 'brightness(1.05) contrast(1.05)'
+            }}
+            onLoad={() => handleImageLoad(venuePartner.name)}
+            onError={() => {
+              console.error(`Failed to load image: ${venuePartner.logo}`)
+              handleImageLoad(venuePartner.name)
+            }}
+            unoptimized={venuePartner.logo.endsWith('.png')}
+          />
         </div>
       </div>
     </div>
