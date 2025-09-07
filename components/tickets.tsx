@@ -416,7 +416,7 @@ export function Tickets() {
               <CardContent className="p-0">
                 <div className="aspect-[16/9] relative">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.4234567890123!2d123.89012345678901!3d10.345678901234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a999f4c2f8b7c5%3A0x8b5c5e5f5e5e5e5e!2sUniversity%20of%20the%20Philippines%20Cebu%20Performing%20Arts%20Hall%2C%20Gorordo%20Ave%2C%20Lahug%2C%20Cebu%20City%2C%20Cebu!5e0!3m2!1sen!2sph!4v1234567890123!5m2!1sen!2sph"
+                    src="https://embed.waze.com/iframe?zoom=16&lat=10.321438&lon=123.898098&ct=livemap"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -425,6 +425,20 @@ export function Tickets() {
                     referrerPolicy="no-referrer-when-downgrade"
                     className="absolute inset-0 rounded-xl"
                   ></iframe>
+                  
+                  {/* Red Location Pointer */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                    <div className="relative">
+                      {/* Pulsing ring */}
+                      <div className="absolute inset-0 w-8 h-8 bg-red-500/30 rounded-full animate-ping"></div>
+                      {/* Main pointer */}
+                      <div className="relative w-6 h-6 bg-red-500 rounded-full border-2 border-white shadow-lg">
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full"></div>
+                      </div>
+                      {/* Pointer tail */}
+                      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-4 border-l-transparent border-r-transparent border-t-red-500"></div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -433,22 +447,6 @@ export function Tickets() {
 
         {/* Enhanced Footer */}
         <div className="text-center">
-          <div className="relative inline-block mb-4">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 rounded-2xl blur-xl"></div>
-            <div className="relative bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-2xl px-6 py-4 shadow-xl">
-              <div className="flex items-center justify-center gap-2">
-                <span className="text-2xl">🎉</span>
-                <div className="text-center">
-                  <div className="text-base sm:text-lg font-bold">
-                    {isEarlyBirdActive ? "Early Bird Special" : "Regular Pricing"}
-                  </div>
-                  <div className="text-sm opacity-90">
-                    {isEarlyBirdActive ? "Available until August 30, 2025" : "Now in effect"}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           <p className="text-gray-400 text-lg">
             Powered by <span className="font-bold text-orange-400">TicketNation</span> • All prices are in
             Philippine Pesos • Tickets are non-refundable but transferable
