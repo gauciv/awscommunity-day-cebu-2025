@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 const PartnerImageSkeleton = ({ size = 'medium' }: { size?: 'small' | 'medium' | 'large' }) => {
   const sizeClasses = {
     small: 'w-[180px] h-[100px]',
-    medium: 'w-[220px] h-[120px]',
+    medium: 'w-[220px] h-[140px]',
     large: 'w-[300px] h-[160px]'
   }
   
@@ -47,7 +47,6 @@ export function Partners() {
     name: 'UPCSG',
     logo: '/images/partners/upcsg.png',
     alt: 'University of the Philippines Cebu Student Guild',
-    description: 'Our gracious venue partner providing the perfect space for AWS Community Day Cebu'
   }
 
   // Community Partners
@@ -74,13 +73,10 @@ export function Partners() {
           </span>
         </h3>
         <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto mb-4"></div>
-        <p className="text-gray-300 max-w-2xl mx-auto">
-          {venuePartner.description}
-        </p>
       </div>
 
       <div className="flex justify-center">
-        <div className="group relative overflow-hidden bg-white/95 backdrop-blur-sm shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-2 border-2 border-purple-400/30"
+        <div className="group relative overflow-hidden bg-slate-800/90 backdrop-blur-sm shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-2 border-2 border-slate-600/50"
              style={{
                clipPath: 'polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)',
                width: '320px',
@@ -104,14 +100,15 @@ export function Partners() {
               alt={venuePartner.alt}
               width={280}
               height={160}
-              className={`object-contain filter group-hover:brightness-110 transition-all duration-300 ${
+              className={`object-contain transition-all duration-300 group-hover:scale-105 ${
                 !loadedImages[venuePartner.name] ? 'opacity-0' : 'opacity-100'
               }`}
               style={{ 
                 maxWidth: '280px',
                 maxHeight: '160px',
                 width: 'auto',
-                height: 'auto'
+                height: 'auto',
+                filter: 'brightness(1.3) contrast(1.2) saturate(1.1) drop-shadow(0 2px 8px rgba(0,0,0,0.4))'
               }}
               onLoad={() => handleImageLoad(venuePartner.name)}
               onError={() => {
@@ -135,47 +132,35 @@ export function Partners() {
           </span>
         </h3>
         <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-400 mx-auto mb-4"></div>
-        <p className="text-gray-300 max-w-2xl mx-auto">
-          Amazing organizations and communities supporting the Cebu tech ecosystem
-        </p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
-        {communityPartners.map((partner, index) => (
-          <div
-            key={partner.name}
-            className="group relative overflow-hidden bg-white/90 backdrop-blur-sm shadow-lg hover:shadow-cyan-500/20 transition-all duration-500 hover:scale-105 hover:-translate-y-1 border border-cyan-400/20"
-            style={{
-              clipPath: 'polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px)',
-              width: '180px',
-              height: '100px',
-              animationDelay: `${index * 100}ms`
-            }}
-          >
-            {/* Partner glow effects */}
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 pointer-events-none"></div>
-            <div className="absolute top-1 right-1 w-0.5 h-0.5 rounded-full bg-cyan-400/50 animate-pulse"></div>
-            
-            {/* Image container */}
-            <div className="relative w-full h-full flex items-center justify-center p-3">
+      <div className="max-w-7xl mx-auto">
+        {/* Event Banner Style - Compact Horizontal Layout */}
+        <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-8">
+          {communityPartners.map((partner, index) => (
+            <div
+              key={partner.name}
+              className="group transition-all duration-300 hover:scale-105"
+              style={{
+                animationDelay: `${index * 50}ms`,
+              }}
+            >
               {!loadedImages[partner.name] && (
-                <div className="absolute inset-0">
-                  <PartnerImageSkeleton size="small" />
-                </div>
+                <div className="w-24 h-16 bg-slate-700/30 animate-pulse rounded"></div>
               )}
               <Image
                 src={partner.logo}
                 alt={partner.alt}
-                width={160}
-                height={80}
-                className={`object-contain filter group-hover:brightness-110 transition-all duration-300 ${
-                  !loadedImages[partner.name] ? 'opacity-0' : 'opacity-100'
+                width={300}
+                height={200}
+                className={`object-contain transition-all duration-300 ${
+                  !loadedImages[partner.name] ? 'opacity-0 absolute' : 'opacity-100'
                 }`}
                 style={{ 
-                  maxWidth: '160px',
-                  maxHeight: '80px',
                   width: 'auto',
-                  height: 'auto'
+                  height: 'auto',
+                  maxHeight: partner.name === 'CISCO' ? '75px' : '60px',
+                  filter: 'brightness(1.05) contrast(1.05)'
                 }}
                 onLoad={() => handleImageLoad(partner.name)}
                 onError={() => {
@@ -185,19 +170,19 @@ export function Partners() {
                 unoptimized={partner.logo.endsWith('.png')}
               />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
 
   return (
-    <section id="partners" className="py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-900 via-purple-900/90 to-slate-900 relative overflow-hidden">
+    <section id="partners" className="py-20 md:py-28 lg:py-36 bg-gradient-to-br from-slate-900 via-blue-900/90 to-slate-900 relative overflow-hidden">
       {/* Enhanced Background Effects with Dynamic Constellations */}
       <div className="absolute inset-0">
         {/* Gradient orbs with partner theme colors */}
-        <div className="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/10 via-pink-500/15 to-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-32 left-1/3 w-80 h-80 bg-gradient-to-r from-cyan-500/8 via-blue-500/12 to-purple-600/8 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-20 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 via-purple-500/15 to-indigo-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-32 left-1/3 w-80 h-80 bg-gradient-to-r from-orange-500/8 via-yellow-500/12 to-orange-600/8 rounded-full blur-2xl animate-pulse delay-1000"></div>
         
         {/* Dynamic Constellation Elements */}
         <div className="constellation-container">
