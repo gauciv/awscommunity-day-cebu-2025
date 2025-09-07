@@ -141,8 +141,8 @@ export function Partners() {
                   !loadedImages[partner.name] ? 'opacity-0 absolute' : 'opacity-100'
                 }`}
                 style={{ 
-                  width: '144px',
-                  height: '96px',
+                  width: '150px',
+                  height: '120px',
                   filter: 'brightness(1.05) contrast(1.05)'
                 }}
                 onLoad={() => handleImageLoad(partner.name)}
