@@ -90,7 +90,7 @@ export function Speakers() {
     },
     {
       name: "Trixie Nicole Organiza",
-      position: "Cloud Engineer Intern at Elevate",
+      position: "Cloud Engineer Intern at Elevate Innovations Corp",
       image: "/images/speakers/trixie-nicole-organiza.jpg",
     },
     {
