@@ -22,7 +22,7 @@ jobs:
         # This 'if' condition checks if the action was 'labeled' AND if the label name is 'blocked'
         if: github.event.action == 'labeled' && github.event.label.name == 'blocked'
         # This uses a pre-made action to easily interact with the GitHub API
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           # This tells the script to use the repository's secret token for authentication
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -38,7 +38,7 @@ jobs:
       - name: Unlock issue when 'blocked' label is removed
         # This 'if' condition checks if the action was 'unlabeled' AND if the label name is 'blocked'
         if: github.event.action == 'unlabeled' && github.event.label.name == 'blocked'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
