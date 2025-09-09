@@ -2,6 +2,8 @@
 
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Download, Calendar } from 'lucide-react'
 
 export function Schedule() {
   // Main venue (PAH) events with exact times
@@ -32,7 +34,7 @@ export function Schedule() {
     { startTime: '17:11', endTime: '17:16', title: 'Q&A', type: 'qa' },
     { startTime: '17:16', endTime: '17:17', title: 'Speaker Introduction', type: 'transition' },
     { startTime: '17:17', endTime: '17:37', title: 'AWS Lambda Web Adapters: Improve Portability and Developer Productivity', speaker: 'Louie Miguel', type: 'talk' },
-    { startTime: '17:37', endTime: '17:45', title: 'Q&A', type: 'qa' },
+    { startTime: '17:37', endTime: '17:42', title: 'Q&A', type: 'qa' },
     { startTime: '17:42', endTime: '17:50', title: 'Closing of break out rooms/chance to network', description: 'Chance to explore booths', type: 'networking' },
     { startTime: '17:50', endTime: '18:15', title: 'Sponsorial talk', type: 'sponsor' },
     { startTime: '18:15', endTime: '18:20', title: 'Community partners recognition', type: 'recognition' },
@@ -64,7 +66,7 @@ export function Schedule() {
     { startTime: '16:41', endTime: '17:11', title: 'AWS Landing Zones', speaker: 'Cleo Credo', type: 'talk' },
     { startTime: '17:11', endTime: '17:16', title: 'Q&A', type: 'qa' },
     { startTime: '17:16', endTime: '17:17', title: 'Speaker Introduction', type: 'transition' },
-    { startTime: '17:17', endTime: '17:37', title: 'Cloud architecture. multi-region setup leveraging global databases, serverless and containers', speaker: 'Romar Cablao', type: 'talk' },
+    { startTime: '17:17', endTime: '17:37', title: 'Cloud architecture: multi-region setup leveraging global databases, serverless and containers', speaker: 'Romar Cablao', type: 'talk' },
     { startTime: '17:37', endTime: '17:42', title: 'Q&A', type: 'qa' },
     { startTime: '17:42', endTime: '17:50', title: 'Closing of break out rooms/chance to network', description: 'Chance to explore booths', type: 'networking' }
   ]
@@ -105,175 +107,167 @@ export function Schedule() {
   }
 
   return (
-    <section id="schedule" className="py-12 md:py-20 lg:py-32 bg-gray-900/50 relative overflow-hidden">
-      {/* Subtle background elements */}
+    <section id="schedule" className="py-8 md:py-16 lg:py-24 bg-gradient-to-br from-slate-900 via-blue-900/90 to-slate-900 relative overflow-hidden">
+      {/* Constellation background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-10 left-10 text-orange-400/10 text-4xl animate-twinkle">✧</div>
-        <div className="absolute bottom-10 right-10 text-orange-300/10 text-5xl animate-float-slow">✦</div>
-        <div className="absolute top-1/3 right-1/3 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl" />
+        <div className="absolute top-10 left-10 text-orange-400/20 text-4xl animate-twinkle">✧</div>
+        <div className="absolute bottom-10 right-10 text-orange-300/20 text-5xl animate-float-slow">✦</div>
+        <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <div className="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm font-medium mb-4 md:mb-6 border border-orange-500/20">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 relative z-10">
+        <div className="text-center mb-6 sm:mb-8 md:mb-12">
+          <div className="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 text-xs sm:text-sm font-medium mb-3 md:mb-4 border border-orange-500/20">
+            <Calendar className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Event Schedule
           </div>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white mb-4 md:mb-6 px-2 sm:px-0">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white mb-3 md:mb-4 px-2 sm:px-0">
             <span className="block sm:inline">Full Day of</span>{' '}
             <span className="bg-gradient-to-r from-orange-400 via-yellow-500 to-orange-600 bg-clip-text text-transparent block sm:inline">
               Learning
             </span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto px-3 sm:px-0">
+          <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-3xl mx-auto px-3 sm:px-0 mb-4 md:mb-6">
             Two venues running simultaneously with exact timing for all sessions and activities.
           </p>
+          
+          {/* PDF Download Button */}
+          <div className="flex justify-center">
+            <Button 
+              onClick={() => window.open('/aws-community-day-cebu-2025-event-programme.pdf', '_blank')}
+              className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
+            >
+              <Download className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              Download Programme PDF
+            </Button>
+          </div>
         </div>
 
         {/* Dual Timeline Layout */}
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
             {/* Main Venue Timeline */}
-            <div className="bg-card/30 backdrop-blur-sm rounded-xl border border-border/50 p-6">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-2">Performing Arts Hall</h3>
-                <p className="text-sm text-gray-400 uppercase tracking-wider">Main Venue</p>
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border-2 border-white/20 p-4 sm:p-6 lg:p-8 shadow-2xl shadow-blue-900/20 hover:border-orange-400/30 transition-all duration-300 relative overflow-hidden">
+              {/* Modern gradient outline effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-400/20 via-transparent to-blue-400/20 p-[2px]">
+                <div className="h-full w-full rounded-2xl bg-slate-900/80 backdrop-blur-sm"></div>
               </div>
               
-              <div className="space-y-4">
-                {mainVenueEvents.map((event, index) => {
-                  const duration = getDuration(event.startTime, event.endTime)
-                  const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
-                  
-                  return (
-                    <div key={index} className={`flex gap-4 ${isKeyEvent ? 'py-2' : 'py-1'}`}>
-                      {/* Time Column */}
-                      <div className="w-24 flex-shrink-0 text-right">
-                        <div className="text-sm font-mono text-orange-400 font-semibold">
-                          {formatTime(event.startTime)}
+              <div className="relative z-10">
+                <div className="text-center mb-6 pb-4 border-b border-orange-400/30">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Performing Arts Hall</h3>
+                  <p className="text-xs sm:text-sm text-orange-400 uppercase tracking-wider font-semibold">Main Venue</p>
+                </div>
+                
+                <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+                  {mainVenueEvents.map((event, index) => {
+                    const duration = getDuration(event.startTime, event.endTime)
+                    const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
+                    
+                    return (
+                      <div key={index} className={`flex gap-3 sm:gap-4 lg:gap-6 ${isKeyEvent ? 'py-1 sm:py-2' : 'py-1'}`}>
+                        {/* Time Column */}
+                        <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0 text-right">
+                          <div className="text-xs sm:text-sm font-mono text-orange-400 font-semibold">
+                            {formatTime(event.startTime)}
+                          </div>
+                          <div className="text-xs text-gray-400 mt-1">
+                            {duration} min
+                          </div>
                         </div>
-                        <div className="text-xs text-gray-500 mt-1">
-                          {duration} min
-                        </div>
-                      </div>
-                      
-                      {/* Event Card */}
-                      <div className="flex-1">
-                        <div className={`${getTypeColor(event.type)} rounded-lg p-4 border-l-4 shadow-sm hover:shadow-md transition-shadow`}>
-                          <div className="flex items-start justify-between mb-2">
-                            <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-base' : 'text-sm'}`}>
-                              {event.title}
-                            </h4>
-                            <div className="text-xs opacity-75 ml-3 flex-shrink-0">
-                              {formatTime(event.endTime)}
+                        
+                        {/* Event Card */}
+                        <div className="flex-1 min-w-0">
+                          <div className={`${getTypeColor(event.type)} rounded-lg sm:rounded-xl p-3 sm:p-4 border-l-4 border-2 border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] relative`}>
+                            {/* Subtle glow effect */}
+                            <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200"></div>
+                            
+                            <div className="relative text-center">
+                              <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'} mb-2`}>
+                                {event.title}
+                              </h4>
+                              
+                              {event.speaker && (
+                                <div className="text-xs sm:text-sm opacity-90 mb-2 font-medium">
+                                  {event.speaker}
+                                </div>
+                              )}
+                              
+                              {event.description && isKeyEvent && (
+                                <p className="text-xs opacity-80 leading-relaxed">
+                                  {event.description}
+                                </p>
+                              )}
                             </div>
                           </div>
-                          
-                          {event.speaker && (
-                            <div className="text-sm opacity-90 mb-2 font-medium">
-                              {event.speaker}
-                            </div>
-                          )}
-                          
-                          {event.description && isKeyEvent && (
-                            <p className="text-xs opacity-80 leading-relaxed">
-                              {event.description}
-                            </p>
-                          )}
                         </div>
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
+                </div>
               </div>
             </div>
 
             {/* Breakout Room Timeline */}
-            <div className="bg-card/30 backdrop-blur-sm rounded-xl border border-border/50 p-6">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-2">AVR1</h3>
-                <p className="text-sm text-gray-400 uppercase tracking-wider">Breakout Room</p>
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl border-2 border-white/20 p-4 sm:p-6 lg:p-8 shadow-2xl shadow-blue-900/20 hover:border-orange-400/30 transition-all duration-300 relative overflow-hidden">
+              {/* Modern gradient outline effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/20 via-transparent to-orange-400/20 p-[2px]">
+                <div className="h-full w-full rounded-2xl bg-slate-900/80 backdrop-blur-sm"></div>
               </div>
               
-              <div className="space-y-4">
-                {breakoutVenueEvents.map((event, index) => {
-                  const duration = getDuration(event.startTime, event.endTime)
-                  const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
-                  
-                  return (
-                    <div key={index} className={`flex gap-4 ${isKeyEvent ? 'py-2' : 'py-1'}`}>
-                      {/* Time Column */}
-                      <div className="w-24 flex-shrink-0 text-right">
-                        <div className="text-sm font-mono text-orange-400 font-semibold">
-                          {formatTime(event.startTime)}
+              <div className="relative z-10">
+                <div className="text-center mb-6 pb-4 border-b border-orange-400/30">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">AVR1</h3>
+                  <p className="text-xs sm:text-sm text-orange-400 uppercase tracking-wider font-semibold">Breakout Room</p>
+                </div>
+                
+                <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+                  {breakoutVenueEvents.map((event, index) => {
+                    const duration = getDuration(event.startTime, event.endTime)
+                    const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
+                    
+                    return (
+                      <div key={index} className={`flex gap-3 sm:gap-4 lg:gap-6 ${isKeyEvent ? 'py-1 sm:py-2' : 'py-1'}`}>
+                        {/* Time Column */}
+                        <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0 text-right">
+                          <div className="text-xs sm:text-sm font-mono text-orange-400 font-semibold">
+                            {formatTime(event.startTime)}
+                          </div>
+                          <div className="text-xs text-gray-400 mt-1">
+                            {duration} min
+                          </div>
                         </div>
-                        <div className="text-xs text-gray-500 mt-1">
-                          {duration} min
-                        </div>
-                      </div>
-                      
-                      {/* Event Card */}
-                      <div className="flex-1">
-                        <div className={`${getTypeColor(event.type)} rounded-lg p-4 border-l-4 shadow-sm hover:shadow-md transition-shadow`}>
-                          <div className="flex items-start justify-between mb-2">
-                            <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-base' : 'text-sm'}`}>
-                              {event.title}
-                            </h4>
-                            <div className="text-xs opacity-75 ml-3 flex-shrink-0">
-                              {formatTime(event.endTime)}
+                        
+                        {/* Event Card */}
+                        <div className="flex-1 min-w-0">
+                          <div className={`${getTypeColor(event.type)} rounded-lg sm:rounded-xl p-3 sm:p-4 border-l-4 border-2 border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] relative`}>
+                            {/* Subtle glow effect */}
+                            <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200"></div>
+                            
+                            <div className="relative text-center">
+                              <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'} mb-2`}>
+                                {event.title}
+                              </h4>
+                              
+                              {event.speaker && (
+                                <div className="text-xs sm:text-sm opacity-90 mb-2 font-medium">
+                                  {event.speaker}
+                                </div>
+                              )}
+                              
+                              {event.description && isKeyEvent && (
+                                <p className="text-xs opacity-80 leading-relaxed">
+                                  {event.description}
+                                </p>
+                              )}
                             </div>
                           </div>
-                          
-                          {event.speaker && (
-                            <div className="text-sm opacity-90 mb-2 font-medium">
-                              {event.speaker}
-                            </div>
-                          )}
-                          
-                          {event.description && isKeyEvent && (
-                            <p className="text-xs opacity-80 leading-relaxed">
-                              {event.description}
-                            </p>
-                          )}
                         </div>
                       </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Legend */}
-          <div className="mt-12 bg-card/20 backdrop-blur-sm rounded-xl border border-border/50 p-6">
-            <h4 className="text-center text-lg font-semibold text-white mb-6">Event Types</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-6 h-6 bg-gradient-to-r from-orange-500 to-amber-500 rounded-lg border-l-4 border-orange-500 shadow-sm"></div>
-                <span className="text-xs text-gray-300 text-center">Keynote</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-6 h-6 bg-blue-600 rounded-lg border-l-4 border-blue-600 shadow-sm"></div>
-                <span className="text-xs text-gray-300 text-center">Technical Sessions</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-6 h-6 bg-violet-600 rounded-lg border-l-4 border-violet-600 shadow-sm"></div>
-                <span className="text-xs text-gray-300 text-center">Workshop</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-6 h-6 bg-emerald-600 rounded-lg border-l-4 border-emerald-600 shadow-sm"></div>
-                <span className="text-xs text-gray-300 text-center">Breaks</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-6 h-6 bg-purple-600 rounded-lg border-l-4 border-purple-600 shadow-sm"></div>
-                <span className="text-xs text-gray-300 text-center">Networking</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-6 h-6 bg-slate-500 rounded-lg border-l-4 border-slate-500 shadow-sm"></div>
-                <span className="text-xs text-gray-300 text-center">Q&A</span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-6 h-6 bg-gray-500 rounded-lg border-l-4 border-gray-500 shadow-sm"></div>
-                <span className="text-xs text-gray-300 text-center">Transitions</span>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
