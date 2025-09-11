@@ -90,9 +90,9 @@ export function Partners() {
   ]
 
   const renderVenuePartner = () => (
-    <div className="venue-partner-container relative mb-16">
+    <div className="venue-partner-container relative mb-20 sm:mb-16">
       <div className="text-center mb-8">
-        <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
           <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Venue Partner
           </span>
@@ -111,7 +111,7 @@ export function Partners() {
               width={400}
               height={230}
               className="object-contain transition-all duration-300 brightness-105 contrast-105"
-              sizes="(max-width: 640px) 90vw, (max-width: 768px) 400px, 400px"
+              sizes="(max-width: 640px) 80vw, (max-width: 768px) 350px, 400px"
               priority={true}
               loading="eager"
               quality={90}
@@ -132,8 +132,8 @@ export function Partners() {
 
   const renderCommunityPartners = () => (
     <div className="community-partners-container relative mb-16">
-      <div className="text-center mb-12">
-        <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      <div className="text-center mb-12 mt-8 sm:mt-0">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
           <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
             Community Partners
           </span>
@@ -141,9 +141,9 @@ export function Partners() {
         <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-400 mx-auto mb-4"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-0">
         {/* Event Banner Style - Compact Horizontal Layout */}
-        <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-8">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-8">
           {communityPartners.map((partner, index) => {
             const isPriority = index < 4 // First 4 partners get priority loading
             
@@ -157,7 +157,7 @@ export function Partners() {
                   animationDelay: `${index * 50}ms`,
                 }}
               >
-                <div className="relative w-[150px] h-[120px]">
+                <div className="relative w-[120px] h-[100px] sm:w-[150px] sm:h-[120px]">
                   <OptimizedImage
                     src={partner.logo}
                     alt={partner.alt}
