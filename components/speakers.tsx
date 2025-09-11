@@ -98,6 +98,11 @@ export function Speakers() {
       position: "AWS Community Builder",
       image: "/images/speakers/romar-cablao.png",
     },
+    {
+      name: "Mark Achiles Flores Jr.",
+      position: "Cloud Engineer at Elevate Innovations Corp.",
+      image: "/images/speakers/mark-achiles-flores.jpeg",
+    },
   ]
 
   return (
