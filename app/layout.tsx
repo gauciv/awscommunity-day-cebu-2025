@@ -14,24 +14,25 @@ export const metadata: Metadata = {
   authors: [{ name: "AWS User Group Philippines - Cebu Chapter" }],
   creator: "AWS User Group Philippines - Cebu Chapter",
   publisher: "AWS User Group Philippines - Cebu Chapter",
-  metadataBase: new URL("https://official.d3qya03l6igwcl.amplifyapp.com"),
+  metadataBase: new URL("https://awscommunitydaycebu2025.gauciv.tech"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://official.d3qya03l6igwcl.amplifyapp.com",
+    url: "https://awscommunitydaycebu2025.gauciv.tech",
     title: "AWS Community Day Cebu 2025 - Build Beyond Limits",
     description:
       "Join us for AWS Community Day Cebu 2025 on September 13, 2025 at University of the Philippines Cebu. Build Beyond Limits with 9 amazing speakers and the AWS community.",
     siteName: "AWS Community Day Cebu 2025",
     images: [
       {
-        url: "/awscdcebu-banner.png",
+        url: "https://awscommunitydaycebu2025.gauciv.tech/awscdcebu-banner.png",
         width: 1200,
         height: 630,
         alt: "AWS Community Day Cebu 2025 - Build Beyond Limits",
+        type: "image/png",
       },
     ],
   },
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
     title: "AWS Community Day Cebu 2025 - Build Beyond Limits",
     description:
       "Join us for AWS Community Day Cebu 2025 on September 13, 2025 at University of the Philippines Cebu. Build Beyond Limits with 9 amazing speakers and the AWS community.",
-    images: ["/awscdcebu-banner.png"],
+    images: ["https://awscommunitydaycebu2025.gauciv.tech/awscdcebu-banner.png"],
     creator: "@AWSUserGroupPH",
     site: "@AWSUserGroupPH",
   },
@@ -76,6 +77,18 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#232F3E" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
+        {/* Additional Open Graph tags for better social media support */}
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:updated_time" content="2025-09-11T00:00:00Z" />
+        
+        {/* Additional Twitter Card tags */}
+        <meta name="twitter:image:alt" content="AWS Community Day Cebu 2025 - Build Beyond Limits" />
+        
+        {/* Facebook App ID (if you have one) */}
+        {/* <meta property="fb:app_id" content="YOUR_FB_APP_ID" /> */}
+        
         {/* Structured data for events */}
         <script
           type="application/ld+json"
@@ -103,10 +116,10 @@ export default function RootLayout({
               "organizer": {
                 "@type": "Organization",
                 "name": "AWS User Group Philippines - Cebu Chapter",
-                "url": "https://official.d3qya03l6igwcl.amplifyapp.com"
+                "url": "https://awscommunitydaycebu2025.gauciv.tech"
               },
-              "image": "https://official.d3qya03l6igwcl.amplifyapp.com/awscdcebu-banner.png",
-              "url": "https://official.d3qya03l6igwcl.amplifyapp.com"
+              "image": "https://awscommunitydaycebu2025.gauciv.tech/awscdcebu-banner.png",
+              "url": "https://awscommunitydaycebu2025.gauciv.tech"
             })
           }}
         />

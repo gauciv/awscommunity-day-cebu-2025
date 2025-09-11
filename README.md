@@ -17,7 +17,7 @@
 
 Welcome to the official open-source repository for the **AWS Community Day - Cebu Roadshow 2025** website! This project is a collaborative effort by the AWS community, for the community. Our mission is to build a welcoming, informative, and engaging digital home for our event.
 
-**🚀 Live Website:** [`https://official.d3qya03l6igwcl.amplifyapp.com/`](https://official.d3qya03l6igwcl.amplifyapp.com/)
+**🚀 Live Website:** [`Click Me`](https://awscommunitydaycebu2025.gauciv.tech/)
 
 ---
 
