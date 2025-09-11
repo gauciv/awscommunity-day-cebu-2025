@@ -244,10 +244,32 @@ export function Speakers() {
                 <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-3 sm:mb-4 group-hover:text-yellow-400 transition-colors duration-500 leading-tight">
                   {keynoteSpeaker.name}
                 </h3>
-                <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white border-0 text-sm sm:text-base md:text-lg font-bold px-3 sm:px-4 md:px-6 py-1 sm:py-2 mb-3 sm:mb-4 shadow-lg">
-                  <Crown className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                  Keynote Speaker
-                </Badge>
+                
+                {/* Plaque-style Keynote Badge */}
+                <div className="relative mb-3 sm:mb-4">
+                  <div className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 p-0.5 rounded-lg shadow-2xl">
+                    <div className="bg-gradient-to-br from-yellow-500 via-amber-500 to-yellow-600 rounded-lg px-4 sm:px-6 py-2 sm:py-3 relative overflow-hidden">
+                      {/* Plaque shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent rounded-lg"></div>
+                      <div className="absolute top-1 left-1 right-1 h-1 bg-gradient-to-r from-white/40 via-white/60 to-white/40 rounded-full"></div>
+                      
+                      {/* Content */}
+                      <div className="relative flex items-center justify-center text-amber-900">
+                        <Crown className="w-4 h-4 sm:w-5 sm:h-5 mr-2 drop-shadow-sm" />
+                        <span className="font-black text-sm sm:text-base md:text-lg tracking-wide drop-shadow-sm">
+                          KEYNOTE SPEAKER
+                        </span>
+                        <Crown className="w-4 h-4 sm:w-5 sm:h-5 ml-2 drop-shadow-sm" />
+                      </div>
+                      
+                      {/* Bottom highlight */}
+                      <div className="absolute bottom-1 left-1 right-1 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 via-amber-500/20 to-yellow-600/20 rounded-lg blur-md -z-10"></div>
+                </div>
                 <p className="text-gray-300 leading-relaxed text-sm sm:text-base md:text-lg group-hover:text-white transition-colors duration-500">
                   {keynoteSpeaker.position}
                 </p>
