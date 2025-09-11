@@ -77,7 +77,7 @@ export function Sponsors() {
         }}
       >
         {/* Logo */}
-        <div className="mb-4">
+        <div className={`mb-4 ${sponsor.name === 'Legal Match' ? 'mx-4 sm:mx-0' : ''}`}>
           {!loadedImages[sponsor.name] && (
             <div className="w-[150px] h-[120px] bg-slate-700/30 animate-pulse rounded"></div>
           )}
@@ -90,8 +90,8 @@ export function Sponsors() {
               !loadedImages[sponsor.name] ? 'opacity-0 absolute' : 'opacity-100'
             }`}
             style={{ 
-              width: tier === 'platinum' ? '200px' : tier === 'gold' ? '170px' : '150px',
-              height: tier === 'platinum' ? '150px' : tier === 'gold' ? '130px' : '120px',
+              width: tier === 'platinum' ? '200px' : tier === 'gold' ? (sponsor.name === 'Legal Match' ? '400px' : '300px') : '150px',
+              height: tier === 'platinum' ? '150px' : tier === 'gold' ? (sponsor.name === 'Legal Match' ? '240px' : '180px') : '130px',
               filter: 'brightness(1.05) contrast(1.05)'
             }}
             onLoad={() => handleImageLoad(sponsor.name)}
