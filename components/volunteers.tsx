@@ -373,10 +373,10 @@ export function Volunteers() {
         {hasMore ? (
           <div className="text-center mt-6 sm:mt-8 md:mt-12 lg:mt-16">
             <div className="relative inline-block">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 rounded-full blur-lg sm:blur-xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-yellow-500/20 rounded-lg blur-lg sm:blur-xl"></div>
               <Button
                 onClick={() => setShowAll(true)}
-                className="relative bg-white/10 backdrop-blur-sm border border-orange-500/30 text-orange-400 hover:bg-orange-500/10 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg font-bold rounded-full shadow-xl hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-200 hover:scale-105 min-h-[44px] touch-manipulation"
+                className="relative bg-white/10 backdrop-blur-sm border border-orange-500/30 text-orange-400 hover:bg-orange-500/10 px-6 sm:px-8 lg:px-10 py-4 sm:py-5 lg:py-6 text-sm sm:text-base lg:text-lg font-bold rounded-lg shadow-xl hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-200 hover:scale-105 min-h-[60px] sm:min-h-[68px] lg:min-h-[76px] min-w-[60px] sm:min-w-[68px] lg:min-w-[76px] touch-manipulation"
               >
                 <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 mr-2 animate-bounce" />
                 <span className="hidden sm:inline">Show More Volunteers ({filteredVolunteers.length - displayedVolunteers.length} remaining)</span>
