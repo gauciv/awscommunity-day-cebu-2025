@@ -236,9 +236,29 @@ export function About() {
             </p>
             <div className="relative p-4 sm:p-6 lg:p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-orange-500/20 shadow-2xl">
               <div className="absolute -top-2 sm:-top-3 left-1/2 transform -translate-x-1/2">
-                <div className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg">
-                  <Zap className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
-                  Join the Movement
+                {/* Plaque-style Join the Movement Badge */}
+                <div className="relative">
+                  <div className="bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600 p-0.5 rounded-lg shadow-2xl">
+                    <div className="bg-gradient-to-br from-orange-500 via-amber-500 to-orange-600 rounded-lg px-3 sm:px-4 py-1 sm:py-2 relative overflow-hidden">
+                      {/* Plaque shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent rounded-lg"></div>
+                      <div className="absolute top-0.5 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-white/40 via-white/60 to-white/40 rounded-full"></div>
+                      
+                      {/* Content */}
+                      <div className="relative flex items-center justify-center text-orange-900">
+                        <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-1 drop-shadow-sm" />
+                        <span className="font-black text-xs sm:text-sm tracking-wide drop-shadow-sm">
+                          JOIN THE MOVEMENT
+                        </span>
+                      </div>
+                      
+                      {/* Bottom highlight */}
+                      <div className="absolute bottom-0.5 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-amber-500/20 to-orange-600/20 rounded-lg blur-md -z-10"></div>
                 </div>
               </div>
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white leading-relaxed font-semibold pt-2 sm:pt-0">
