@@ -1,27 +1,13 @@
 "use client"
 
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
-
-// Loading skeleton component for partner images
-const PartnerImageSkeleton = ({ size = 'medium' }: { size?: 'small' | 'medium' | 'large' }) => {
-  const sizeClasses = {
-    small: 'w-[180px] h-[100px]',
-    medium: 'w-[220px] h-[140px]',
-    large: 'w-[300px] h-[160px]'
-  }
-  
-  return (
-    <div className={`bg-slate-700/50 animate-pulse rounded-lg flex items-center justify-center ${sizeClasses[size]}`}>
-      <div className="w-6 h-6 sm:w-8 sm:h-8 border-2 border-slate-500 border-t-slate-300 rounded-full animate-spin"></div>
-    </div>
-  )
-}
+import { OptimizedImage } from '@/components/ui/optimized-image'
+import { PerformanceMonitor } from '@/lib/performance-monitor'
 
 export function Partners() {
   const [isVisible, setIsVisible] = useState(false)
-  const [loadedImages, setLoadedImages] = useState<{[key: string]: boolean}>({})
 
+  // Intersection Observer for performance
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -29,7 +15,7 @@ export function Partners() {
           setIsVisible(true)
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1, rootMargin: '50px' } // Start animation earlier
     )
 
     const element = document.getElementById("partners")
@@ -38,9 +24,47 @@ export function Partners() {
     return () => observer.disconnect()
   }, [])
 
-  const handleImageLoad = (name: string) => {
-    setLoadedImages(prev => ({ ...prev, [name]: true }))
-  }
+  // Preload critical partner images
+  useEffect(() => {
+    // Preload venue partner and first few community partners
+    const criticalImages = [
+      '/images/partners/upcsg.png',
+      '/images/partners/awscc-ctu.png',
+      '/images/partners/devcon-cebu.png',
+      '/images/partners/psits-ctu.png'
+    ]
+    
+    criticalImages.forEach((src, index) => {
+      const img = new Image()
+      const startTime = performance.now()
+      
+      img.onload = () => {
+        PerformanceMonitor.trackImageLoad(src, startTime, true)
+        PerformanceMonitor.markAsPreloaded(src)
+      }
+      
+      img.onerror = () => {
+        console.error(`Failed to preload critical partner image: ${src}`)
+      }
+      
+      // Stagger preloading to avoid overwhelming the network
+      setTimeout(() => {
+        img.src = src
+      }, index * 100)
+    })
+  }, [])
+
+  // Add resource hints for partner images
+  useEffect(() => {
+    // Add DNS prefetch for partner image domains
+    const domains = ['images']
+    domains.forEach(domain => {
+      const link = document.createElement('link')
+      link.rel = 'dns-prefetch'
+      link.href = `//${domain}`
+      document.head.appendChild(link)
+    })
+  }, [])
 
   // Venue Partner
   const venuePartner = {
@@ -77,31 +101,30 @@ export function Partners() {
       </div>
 
       <div className="flex justify-center">
-        <div className="group transition-all duration-300 hover:scale-105">
-          {!loadedImages[venuePartner.name] && (
-            <div className="w-48 h-32 bg-slate-700/30 animate-pulse rounded"></div>
-          )}
-          <Image
-            src={venuePartner.logo}
-            alt={venuePartner.alt}
-            width={600}
-            height={500}
-            className={`object-contain transition-all duration-300 ${
-              !loadedImages[venuePartner.name] ? 'opacity-0 absolute' : 'opacity-100'
-            }`}
-            style={{ 
-              width: 'auto',
-              height: 'auto',
-              maxHeight: '230px',
-              filter: 'brightness(1.05) contrast(1.05)'
-            }}
-            onLoad={() => handleImageLoad(venuePartner.name)}
-            onError={() => {
-              console.error(`Failed to load image: ${venuePartner.logo}`)
-              handleImageLoad(venuePartner.name)
-            }}
-            unoptimized={venuePartner.logo.endsWith('.png')}
-          />
+        <div className={`group transition-all duration-300 hover:scale-105 ${
+          isVisible ? "animate-slide-up" : "opacity-0 translate-y-10"
+        }`}>
+          <div className="relative" style={{ maxWidth: '400px', maxHeight: '230px' }}>
+            <OptimizedImage
+              src={venuePartner.logo}
+              alt={venuePartner.alt}
+              width={400}
+              height={230}
+              className="object-contain transition-all duration-300 brightness-105 contrast-105"
+              sizes="(max-width: 640px) 90vw, (max-width: 768px) 400px, 400px"
+              priority={true}
+              loading="eager"
+              quality={90}
+              onLoad={() => {
+                if (!PerformanceMonitor.wasPreloaded(venuePartner.logo)) {
+                  PerformanceMonitor.trackImageLoad(venuePartner.logo, performance.now())
+                }
+              }}
+              onError={() => {
+                console.error(`Failed to load venue partner image: ${venuePartner.logo}`)
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -121,39 +144,42 @@ export function Partners() {
       <div className="max-w-7xl mx-auto">
         {/* Event Banner Style - Compact Horizontal Layout */}
         <div className="flex flex-wrap items-center justify-center gap-6 lg:gap-8">
-          {communityPartners.map((partner, index) => (
-            <div
-              key={partner.name}
-              className="group transition-all duration-300 hover:scale-105"
-              style={{
-                animationDelay: `${index * 50}ms`,
-              }}
-            >
-              {!loadedImages[partner.name] && (
-                <div className="w-[144px] h-[96px] bg-slate-700/30 animate-pulse rounded"></div>
-              )}
-              <Image
-                src={partner.logo}
-                alt={partner.alt}
-                width={300}
-                height={200}
-                className={`object-contain transition-all duration-300 ${
-                  !loadedImages[partner.name] ? 'opacity-0 absolute' : 'opacity-100'
+          {communityPartners.map((partner, index) => {
+            const isPriority = index < 4 // First 4 partners get priority loading
+            
+            return (
+              <div
+                key={partner.name}
+                className={`group transition-all duration-300 hover:scale-105 ${
+                  isVisible ? "animate-slide-up" : "opacity-0 translate-y-10"
                 }`}
-                style={{ 
-                  width: '150px',
-                  height: '120px',
-                  filter: 'brightness(1.05) contrast(1.05)'
+                style={{
+                  animationDelay: `${index * 50}ms`,
                 }}
-                onLoad={() => handleImageLoad(partner.name)}
-                onError={() => {
-                  console.error(`Failed to load image: ${partner.logo}`)
-                  handleImageLoad(partner.name)
-                }}
-                unoptimized={partner.logo.endsWith('.png')}
-              />
-            </div>
-          ))}
+              >
+                <div className="relative w-[150px] h-[120px]">
+                  <OptimizedImage
+                    src={partner.logo}
+                    alt={partner.alt}
+                    fill
+                    className="object-contain transition-all duration-300 brightness-105 contrast-105"
+                    sizes="(max-width: 640px) 120px, 150px"
+                    priority={isPriority}
+                    loading={isPriority ? "eager" : "lazy"}
+                    quality={isPriority ? 85 : 75}
+                    onLoad={() => {
+                      if (!PerformanceMonitor.wasPreloaded(partner.logo)) {
+                        PerformanceMonitor.trackImageLoad(partner.logo, performance.now())
+                      }
+                    }}
+                    onError={() => {
+                      console.error(`Failed to load community partner image: ${partner.logo}`)
+                    }}
+                  />
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
