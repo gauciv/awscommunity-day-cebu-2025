@@ -3,9 +3,12 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Download, Calendar } from 'lucide-react'
+import { Download, Calendar, ChevronDown, ChevronUp } from 'lucide-react'
+import { useState } from 'react'
 
 export function Schedule() {
+  const [isMainHallExpanded, setIsMainHallExpanded] = useState(false)
+  const [isAvr1Expanded, setIsAvr1Expanded] = useState(false)
   // Main venue (PAH) events with exact times
   const mainVenueEvents = [
     { startTime: '07:00', endTime: '08:30', title: 'Calltime for volunteers/organizers', type: 'setup' },
@@ -135,7 +138,14 @@ export function Schedule() {
           {/* PDF Download Button */}
           <div className="flex justify-center">
             <Button 
-              onClick={() => window.open('/aws-community-day-cebu-2025-event-programme.pdf', '_blank')}
+              onClick={() => {
+                const link = document.createElement('a')
+                link.href = '/aws-community-day-cebu-2025-event-programme.pdf'
+                link.download = 'aws-community-day-cebu-2025-event-programme.pdf'
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+              }}
               className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-sm sm:text-base"
             >
               <Download className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -157,55 +167,75 @@ export function Schedule() {
               <div className="relative z-10">
                 <div className="text-center mb-6 pb-4 border-b border-orange-400/30">
                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Performing Arts Hall</h3>
-                  <p className="text-xs sm:text-sm text-orange-400 uppercase tracking-wider font-semibold">Main Venue</p>
+                  <p className="text-xs sm:text-sm text-orange-400 uppercase tracking-wider font-semibold mb-4">Main Venue</p>
+                  
+                  {/* Expand/Collapse Button */}
+                  <Button
+                    onClick={() => setIsMainHallExpanded(!isMainHallExpanded)}
+                    className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-4 py-2 text-sm transition-all duration-200"
+                  >
+                    {isMainHallExpanded ? (
+                      <>
+                        <ChevronUp className="w-4 h-4 mr-2" />
+                        Collapse Schedule
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown className="w-4 h-4 mr-2" />
+                        View Full Schedule
+                      </>
+                    )}
+                  </Button>
                 </div>
                 
-                <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-                  {mainVenueEvents.map((event, index) => {
-                    const duration = getDuration(event.startTime, event.endTime)
-                    const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
-                    
-                    return (
-                      <div key={index} className={`flex gap-3 sm:gap-4 lg:gap-6 ${isKeyEvent ? 'py-1 sm:py-2' : 'py-1'}`}>
-                        {/* Time Column */}
-                        <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0 text-right">
-                          <div className="text-xs sm:text-sm font-mono text-orange-400 font-semibold">
-                            {formatTime(event.startTime)}
+                {isMainHallExpanded && (
+                  <div className="space-y-3 sm:space-y-4 lg:space-y-6 animate-fadeIn">
+                    {mainVenueEvents.map((event, index) => {
+                      const duration = getDuration(event.startTime, event.endTime)
+                      const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
+                      
+                      return (
+                        <div key={index} className={`flex gap-3 sm:gap-4 lg:gap-6 ${isKeyEvent ? 'py-1 sm:py-2' : 'py-1'}`}>
+                          {/* Time Column */}
+                          <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0 text-right">
+                            <div className="text-xs sm:text-sm font-mono text-orange-400 font-semibold">
+                              {formatTime(event.startTime)}
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1">
+                              {duration} min
+                            </div>
                           </div>
-                          <div className="text-xs text-gray-400 mt-1">
-                            {duration} min
-                          </div>
-                        </div>
-                        
-                        {/* Event Card */}
-                        <div className="flex-1 min-w-0">
-                          <div className={`${getTypeColor(event.type)} rounded-lg sm:rounded-xl p-3 sm:p-4 border-l-4 border-2 border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] relative`}>
-                            {/* Subtle glow effect */}
-                            <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200"></div>
-                            
-                            <div className="relative text-center">
-                              <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'} mb-2`}>
-                                {event.title}
-                              </h4>
+                          
+                          {/* Event Card */}
+                          <div className="flex-1 min-w-0">
+                            <div className={`${getTypeColor(event.type)} rounded-lg sm:rounded-xl p-3 sm:p-4 border-l-4 border-2 border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] relative`}>
+                              {/* Subtle glow effect */}
+                              <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200"></div>
                               
-                              {event.speaker && (
-                                <div className="text-xs sm:text-sm opacity-90 mb-2 font-medium">
-                                  {event.speaker}
-                                </div>
-                              )}
-                              
-                              {event.description && isKeyEvent && (
-                                <p className="text-xs opacity-80 leading-relaxed">
-                                  {event.description}
-                                </p>
-                              )}
+                              <div className="relative text-center">
+                                <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'} mb-2`}>
+                                  {event.title}
+                                </h4>
+                                
+                                {event.speaker && (
+                                  <div className="text-xs sm:text-sm opacity-90 mb-2 font-medium">
+                                    {event.speaker}
+                                  </div>
+                                )}
+                                
+                                {event.description && isKeyEvent && (
+                                  <p className="text-xs opacity-80 leading-relaxed">
+                                    {event.description}
+                                  </p>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -219,55 +249,75 @@ export function Schedule() {
               <div className="relative z-10">
                 <div className="text-center mb-6 pb-4 border-b border-orange-400/30">
                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">AVR1</h3>
-                  <p className="text-xs sm:text-sm text-orange-400 uppercase tracking-wider font-semibold">Breakout Room</p>
+                  <p className="text-xs sm:text-sm text-orange-400 uppercase tracking-wider font-semibold mb-4">Breakout Room</p>
+                  
+                  {/* Expand/Collapse Button */}
+                  <Button
+                    onClick={() => setIsAvr1Expanded(!isAvr1Expanded)}
+                    className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-4 py-2 text-sm transition-all duration-200"
+                  >
+                    {isAvr1Expanded ? (
+                      <>
+                        <ChevronUp className="w-4 h-4 mr-2" />
+                        Collapse Schedule
+                      </>
+                    ) : (
+                      <>
+                        <ChevronDown className="w-4 h-4 mr-2" />
+                        View Full Schedule
+                      </>
+                    )}
+                  </Button>
                 </div>
                 
-                <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-                  {breakoutVenueEvents.map((event, index) => {
-                    const duration = getDuration(event.startTime, event.endTime)
-                    const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
-                    
-                    return (
-                      <div key={index} className={`flex gap-3 sm:gap-4 lg:gap-6 ${isKeyEvent ? 'py-1 sm:py-2' : 'py-1'}`}>
-                        {/* Time Column */}
-                        <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0 text-right">
-                          <div className="text-xs sm:text-sm font-mono text-orange-400 font-semibold">
-                            {formatTime(event.startTime)}
+                {isAvr1Expanded && (
+                  <div className="space-y-3 sm:space-y-4 lg:space-y-6 animate-fadeIn">
+                    {breakoutVenueEvents.map((event, index) => {
+                      const duration = getDuration(event.startTime, event.endTime)
+                      const isKeyEvent = ['keynote', 'talk', 'workshop'].includes(event.type)
+                      
+                      return (
+                        <div key={index} className={`flex gap-3 sm:gap-4 lg:gap-6 ${isKeyEvent ? 'py-1 sm:py-2' : 'py-1'}`}>
+                          {/* Time Column */}
+                          <div className="w-16 sm:w-20 lg:w-24 flex-shrink-0 text-right">
+                            <div className="text-xs sm:text-sm font-mono text-orange-400 font-semibold">
+                              {formatTime(event.startTime)}
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1">
+                              {duration} min
+                            </div>
                           </div>
-                          <div className="text-xs text-gray-400 mt-1">
-                            {duration} min
-                          </div>
-                        </div>
-                        
-                        {/* Event Card */}
-                        <div className="flex-1 min-w-0">
-                          <div className={`${getTypeColor(event.type)} rounded-lg sm:rounded-xl p-3 sm:p-4 border-l-4 border-2 border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] relative`}>
-                            {/* Subtle glow effect */}
-                            <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200"></div>
-                            
-                            <div className="relative text-center">
-                              <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'} mb-2`}>
-                                {event.title}
-                              </h4>
+                          
+                          {/* Event Card */}
+                          <div className="flex-1 min-w-0">
+                            <div className={`${getTypeColor(event.type)} rounded-lg sm:rounded-xl p-3 sm:p-4 border-l-4 border-2 border-white/20 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02] relative`}>
+                              {/* Subtle glow effect */}
+                              <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-r from-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200"></div>
                               
-                              {event.speaker && (
-                                <div className="text-xs sm:text-sm opacity-90 mb-2 font-medium">
-                                  {event.speaker}
-                                </div>
-                              )}
-                              
-                              {event.description && isKeyEvent && (
-                                <p className="text-xs opacity-80 leading-relaxed">
-                                  {event.description}
-                                </p>
-                              )}
+                              <div className="relative text-center">
+                                <h4 className={`font-semibold leading-tight ${isKeyEvent ? 'text-sm sm:text-base' : 'text-xs sm:text-sm'} mb-2`}>
+                                  {event.title}
+                                </h4>
+                                
+                                {event.speaker && (
+                                  <div className="text-xs sm:text-sm opacity-90 mb-2 font-medium">
+                                    {event.speaker}
+                                  </div>
+                                )}
+                                
+                                {event.description && isKeyEvent && (
+                                  <p className="text-xs opacity-80 leading-relaxed">
+                                    {event.description}
+                                  </p>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>

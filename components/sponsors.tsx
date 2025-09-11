@@ -113,13 +113,13 @@ export function Sponsors() {
     // Calculate responsive sizes more efficiently
     const getResponsiveSizes = () => {
       if (sponsor.name === 'Legal Match') {
-        return '(max-width: 640px) 90vw, (max-width: 768px) 400px, 400px'
+        return '(max-width: 640px) 250px, 400px'
       }
       return tier === 'platinum' ? 
-        '(max-width: 640px) 80vw, (max-width: 768px) 200px, 200px' :
+        '(max-width: 640px) 200px, 200px' :
         tier === 'gold' ? 
-          '(max-width: 640px) 70vw, (max-width: 768px) 300px, 300px' :
-          '(max-width: 640px) 60vw, (max-width: 768px) 150px, 150px'
+          '(max-width: 640px) 300px, 300px' :
+          '(max-width: 640px) 150px, 150px'
     }
     
     return (
@@ -133,13 +133,17 @@ export function Sponsors() {
         }}
       >
         {/* Logo */}
-        <div className={`mb-4 ${sponsor.name === 'Legal Match' ? 'mx-4 sm:mx-0' : ''}`}>
+        <div className={`mb-4 ${sponsor.name === 'Legal Match' ? 'mx-2 sm:mx-0' : ''}`}>
           <div 
-            className="relative transition-all duration-300"
-            style={{ 
-              width: tier === 'platinum' ? '200px' : tier === 'gold' ? (sponsor.name === 'Legal Match' ? '400px' : '300px') : '150px',
-              height: tier === 'platinum' ? '150px' : tier === 'gold' ? (sponsor.name === 'Legal Match' ? '240px' : '180px') : '130px',
-            }}
+            className={`relative transition-all duration-300 ${
+              sponsor.name === 'Legal Match' 
+                ? 'w-[250px] h-[150px] sm:w-[400px] sm:h-[240px]'
+                : tier === 'platinum' 
+                  ? 'w-[200px] h-[150px]' 
+                  : tier === 'gold' 
+                    ? 'w-[300px] h-[180px]' 
+                    : 'w-[150px] h-[130px]'
+            }`}
           >
             <OptimizedImage
               src={sponsor.logo}
