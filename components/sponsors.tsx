@@ -1,14 +1,53 @@
 "use client"
 
-import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { OptimizedImage } from '@/components/ui/optimized-image'
+import { PerformanceMonitor } from '@/lib/performance-monitor'
 
 export function Sponsors() {
-  const [loadedImages, setLoadedImages] = useState<{[key: string]: boolean}>({})
+  const [isVisible, setIsVisible] = useState(false)
 
-  const handleImageLoad = (name: string) => {
-    setLoadedImages(prev => ({ ...prev, [name]: true }))
-  }
+  // Intersection Observer for performance
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1, rootMargin: '50px' } // Start animation earlier
+    )
+
+    const element = document.getElementById("sponsors")
+    if (element) observer.observe(element)
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Preload critical sponsor images
+  useEffect(() => {
+    // Preload AWS logo and Legal Match logo as they're the most important
+    const criticalImages = [
+      '/aws-logo.svg',
+      '/images/sponsors/legalmatch-logo.jpg'
+    ]
+    
+    criticalImages.forEach(src => {
+      const img = new Image()
+      const startTime = performance.now()
+      
+      img.onload = () => {
+        PerformanceMonitor.trackImageLoad(src, startTime, true)
+        PerformanceMonitor.markAsPreloaded(src)
+      }
+      
+      img.onerror = () => {
+        console.error(`Failed to preload critical sponsor image: ${src}`)
+      }
+      
+      img.src = src
+    })
+  }, [])
 
   // National Sponsors
   const nationalSponsors = {
@@ -68,39 +107,60 @@ export function Sponsors() {
   const renderSponsor = (sponsor: any, tier: string, index: number) => {
     const tierStyle = getTierStyle(tier)
     
+    // Determine priority loading for above-the-fold sponsors
+    const isPriority = index < 2 // Load first 2 sponsors with priority
+    
+    // Calculate responsive sizes more efficiently
+    const getResponsiveSizes = () => {
+      if (sponsor.name === 'Legal Match') {
+        return '(max-width: 640px) 90vw, (max-width: 768px) 400px, 400px'
+      }
+      return tier === 'platinum' ? 
+        '(max-width: 640px) 80vw, (max-width: 768px) 200px, 200px' :
+        tier === 'gold' ? 
+          '(max-width: 640px) 70vw, (max-width: 768px) 300px, 300px' :
+          '(max-width: 640px) 60vw, (max-width: 768px) 150px, 150px'
+    }
+    
     return (
       <div
         key={sponsor.name}
-        className="group transition-all duration-300 hover:scale-105 flex flex-col items-center"
+        className={`group transition-all duration-300 hover:scale-105 flex flex-col items-center ${
+          isVisible ? "animate-slide-up" : "opacity-0 translate-y-10"
+        }`}
         style={{
           animationDelay: `${index * 100}ms`,
         }}
       >
         {/* Logo */}
         <div className={`mb-4 ${sponsor.name === 'Legal Match' ? 'mx-4 sm:mx-0' : ''}`}>
-          {!loadedImages[sponsor.name] && (
-            <div className="w-[150px] h-[120px] bg-slate-700/30 animate-pulse rounded"></div>
-          )}
-          <Image
-            src={sponsor.logo}
-            alt={sponsor.alt}
-            width={300}
-            height={200}
-            className={`object-contain transition-all duration-300 ${
-              !loadedImages[sponsor.name] ? 'opacity-0 absolute' : 'opacity-100'
-            }`}
+          <div 
+            className="relative transition-all duration-300"
             style={{ 
               width: tier === 'platinum' ? '200px' : tier === 'gold' ? (sponsor.name === 'Legal Match' ? '400px' : '300px') : '150px',
               height: tier === 'platinum' ? '150px' : tier === 'gold' ? (sponsor.name === 'Legal Match' ? '240px' : '180px') : '130px',
-              filter: 'brightness(1.05) contrast(1.05)'
             }}
-            onLoad={() => handleImageLoad(sponsor.name)}
-            onError={() => {
-              console.error(`Failed to load sponsor image: ${sponsor.logo}`)
-              setLoadedImages(prev => ({ ...prev, [sponsor.name]: true }))
-            }}
-            unoptimized={sponsor.logo.endsWith('.png') || sponsor.logo.endsWith('.svg') || sponsor.logo.endsWith('.jpg')}
-          />
+          >
+            <OptimizedImage
+              src={sponsor.logo}
+              alt={sponsor.alt}
+              fill
+              className="object-contain transition-all duration-300 group-hover:scale-105 brightness-105 contrast-105"
+              sizes={getResponsiveSizes()}
+              priority={isPriority}
+              loading={isPriority ? "eager" : "lazy"}
+              quality={isPriority ? 90 : 80}
+              onLoad={() => {
+                // Track performance for non-preloaded images
+                if (!PerformanceMonitor.wasPreloaded(sponsor.logo)) {
+                  PerformanceMonitor.trackImageLoad(sponsor.logo, performance.now())
+                }
+              }}
+              onError={() => {
+                console.error(`Failed to load sponsor image: ${sponsor.logo}`)
+              }}
+            />
+          </div>
         </div>
         
         {/* Tier Plaque */}
