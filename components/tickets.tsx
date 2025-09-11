@@ -416,7 +416,7 @@ export function Tickets() {
               <CardContent className="p-0">
                 <div className="aspect-[16/9] relative">
                   <iframe
-                    src="https://embed.waze.com/iframe?zoom=16&lat=10.321438&lon=123.898098&ct=livemap"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1400.6985959447215!2d123.89724942349699!3d10.322467868315604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9993a4125b47f%3A0xd96f121ffee417a9!2sUniversity%20of%20the%20Philippines%20Cebu!5e0!3m2!1sen!2sph!4v1757581985608!5m2!1sen!2sph"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -424,21 +424,8 @@ export function Tickets() {
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     className="absolute inset-0 rounded-xl"
+                    title="University of the Philippines Cebu Location"
                   ></iframe>
-                  
-                  {/* Red Location Pointer */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                    <div className="relative">
-                      {/* Pulsing ring */}
-                      <div className="absolute inset-0 w-8 h-8 bg-red-500/30 rounded-full animate-ping"></div>
-                      {/* Main pointer */}
-                      <div className="relative w-6 h-6 bg-red-500 rounded-full border-2 border-white shadow-lg">
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full"></div>
-                      </div>
-                      {/* Pointer tail */}
-                      <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-4 border-l-transparent border-r-transparent border-t-red-500"></div>
-                    </div>
-                  </div>
                 </div>
               </CardContent>
             </Card>
