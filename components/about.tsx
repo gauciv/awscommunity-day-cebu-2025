@@ -235,19 +235,19 @@ export function About() {
               everyone, regardless of their level of AWS knowledge.
             </p>
             <div className="relative p-4 sm:p-6 lg:p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-orange-500/20 shadow-2xl">
-              <div className="absolute -top-2 sm:-top-3 left-1/2 transform -translate-x-1/2">
+              <div className="absolute -top-2 sm:-top-3 left-1/2 transform -translate-x-1/2 z-10">
                 {/* Plaque-style Join the Movement Badge */}
                 <div className="relative">
                   <div className="bg-gradient-to-br from-orange-400 via-orange-500 to-amber-600 p-0.5 rounded-lg shadow-2xl">
-                    <div className="bg-gradient-to-br from-orange-500 via-amber-500 to-orange-600 rounded-lg px-3 sm:px-4 py-1 sm:py-2 relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-orange-500 via-amber-500 to-orange-600 rounded-lg px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 relative overflow-hidden">
                       {/* Plaque shine effect */}
                       <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent rounded-lg"></div>
                       <div className="absolute top-0.5 left-0.5 right-0.5 h-0.5 bg-gradient-to-r from-white/40 via-white/60 to-white/40 rounded-full"></div>
                       
                       {/* Content */}
                       <div className="relative flex items-center justify-center text-orange-900">
-                        <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-1 drop-shadow-sm" />
-                        <span className="font-black text-xs sm:text-sm tracking-wide drop-shadow-sm">
+                        <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 mr-0.5 sm:mr-1 drop-shadow-sm" />
+                        <span className="font-black text-[10px] sm:text-xs md:text-sm tracking-wide drop-shadow-sm whitespace-nowrap">
                           JOIN THE MOVEMENT
                         </span>
                       </div>
@@ -261,7 +261,7 @@ export function About() {
                   <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-amber-500/20 to-orange-600/20 rounded-lg blur-md -z-10"></div>
                 </div>
               </div>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white leading-relaxed font-semibold pt-2 sm:pt-0">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white leading-relaxed font-semibold pt-6 sm:pt-4 md:pt-2">
                 Join <span className="text-orange-400 font-black">200+</span> developers, architects, and cloud enthusiasts in Cebu for an unforgettable day of learning,
                 networking, and innovation. Experience hands-on workshops, inspiring keynotes, and connect with the vibrant
                 AWS community in the Philippines.
