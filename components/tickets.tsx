@@ -293,10 +293,35 @@ export function Tickets() {
 
                 {ticket.soldOut && (
                   <div className="absolute -top-2 sm:-top-3 md:-top-4 lg:-top-6 left-1/2 transform -translate-x-1/2 z-20">
-                    <Badge className="bg-gradient-to-r from-red-500 to-red-600 text-white border-0 px-2 sm:px-3 md:px-4 lg:px-6 py-1 sm:py-1 lg:py-2 text-xs sm:text-sm md:text-base font-black shadow-xl">
-                      <X className="w-3 h-3 sm:w-3 sm:h-3 md:w-4 md:h-4 mr-1 sm:mr-1 md:mr-2" />
-                      SOLD OUT
-                    </Badge>
+                    {/* Ribbon-style SOLD OUT badge */}
+                    <div className="relative">
+                      {/* Main ribbon body */}
+                      <div className="bg-gradient-to-r from-red-600 via-red-500 to-red-600 text-white px-4 sm:px-5 md:px-6 lg:px-7 py-2 sm:py-2.5 lg:py-3 text-xs sm:text-sm md:text-base font-black shadow-2xl relative transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                        {/* Badge content */}
+                        <div className="relative flex items-center justify-center">
+                          <X className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1.5 sm:mr-2 drop-shadow-lg" />
+                          <span className="drop-shadow-lg tracking-widest font-extrabold">SOLD OUT</span>
+                        </div>
+                        
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent transform skew-x-12 animate-pulse opacity-75"></div>
+                        
+                        {/* Top edge highlight */}
+                        <div className="absolute top-0 left-2 right-2 h-0.5 bg-gradient-to-r from-transparent via-red-300/60 to-transparent"></div>
+                        
+                        {/* Bottom edge shadow */}
+                        <div className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-transparent via-red-800/80 to-transparent"></div>
+                      </div>
+                      
+                      {/* Left ribbon tail */}
+                      <div className="absolute top-0 -left-2 w-0 h-0 border-t-[20px] sm:border-t-[24px] lg:border-t-[28px] border-t-red-700 border-l-[8px] sm:border-l-[10px] border-l-transparent transform rotate-2"></div>
+                      
+                      {/* Right ribbon tail */}
+                      <div className="absolute top-0 -right-2 w-0 h-0 border-t-[20px] sm:border-t-[24px] lg:border-t-[28px] border-t-red-700 border-r-[8px] sm:border-r-[10px] border-r-transparent transform -rotate-2"></div>
+                      
+                      {/* Outer glow */}
+                      <div className="absolute inset-0 bg-red-500/40 rounded-sm blur-xl -z-10 scale-125"></div>
+                    </div>
                   </div>
                 )}
 
