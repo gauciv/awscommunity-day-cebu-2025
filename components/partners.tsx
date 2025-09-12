@@ -90,7 +90,7 @@ export function Partners() {
   ]
 
   const renderVenuePartner = () => (
-    <div className="venue-partner-container relative mb-20 sm:mb-16">
+    <div className="venue-partner-container relative mb-20 sm:mb-24 lg:mb-32">
       <div className="text-center mb-8">
         <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
           <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -104,14 +104,14 @@ export function Partners() {
         <div className={`group transition-all duration-300 hover:scale-105 ${
           isVisible ? "animate-slide-up" : "opacity-0 translate-y-10"
         }`}>
-          <div className="relative" style={{ maxWidth: '400px', maxHeight: '230px' }}>
+          <div className="relative" style={{ maxWidth: '300px', maxHeight: '180px' }}>
             <OptimizedImage
               src={venuePartner.logo}
               alt={venuePartner.alt}
-              width={400}
-              height={230}
+              width={300}
+              height={180}
               className="object-contain transition-all duration-300 brightness-105 contrast-105"
-              sizes="(max-width: 640px) 80vw, (max-width: 768px) 350px, 400px"
+              sizes="(max-width: 640px) 80vw, (max-width: 768px) 280px, 300px"
               priority={true}
               loading="eager"
               quality={90}
@@ -132,7 +132,7 @@ export function Partners() {
 
   const renderCommunityPartners = () => (
     <div className="community-partners-container relative mb-16">
-      <div className="text-center mb-12 mt-8 sm:mt-0">
+      <div className="text-center mb-12 mt-12 sm:mt-8 lg:mt-0">
         <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
           <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
             Community Partners
