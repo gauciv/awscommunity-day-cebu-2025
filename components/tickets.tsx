@@ -83,7 +83,7 @@ export function Tickets() {
       popular: false,
       icon: Users,
       glowColor: "gray",
-      soldOut: false
+      soldOut: true
     },
     {
       name: "Builder+",
