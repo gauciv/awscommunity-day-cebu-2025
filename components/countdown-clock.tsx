@@ -144,13 +144,6 @@ export function CountdownClock() {
       {isEventEnded ? (
         /* Event Ended Message */
         <div className="text-center max-w-2xl mx-auto">
-          <div className="mb-6">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-              Event Successfully Completed! 🎉
-            </h3>
-            <div className="w-24 h-0.5 bg-gradient-to-r from-orange-400 to-yellow-500 mx-auto rounded-full" />
-          </div>
-          
           <div className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-6 mb-4">
             <p className="text-lg text-white mb-3">
               Thank you for joining AWS Community Day Cebu 2025!
