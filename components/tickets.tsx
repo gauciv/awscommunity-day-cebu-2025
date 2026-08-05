@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, Clock, Users, CheckCircle, Star, Zap, ExternalLink, Sparkles, X } from "lucide-react"
+import { Clock, Users, CheckCircle, Star, Zap, ExternalLink, Sparkles, X } from "lucide-react"
 
 export function Tickets() {
   const [isVisible, setIsVisible] = useState(false)

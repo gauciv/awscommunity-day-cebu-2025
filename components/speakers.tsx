@@ -2,8 +2,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Crown, Star, Sparkles, Zap } from "lucide-react"
+import { Crown, Star, Sparkles } from "lucide-react"
 import { OptimizedImage } from "@/components/ui/optimized-image"
 
 export function Speakers() {

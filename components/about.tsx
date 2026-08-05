@@ -2,9 +2,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Badge } from "@/components/ui/badge"
 import { OptimizedImage } from "@/components/ui/optimized-image"
-import { Sparkles, Star, Zap, ChevronLeft, ChevronRight } from "lucide-react"
+import { Sparkles, Zap, ChevronLeft, ChevronRight } from "lucide-react"
 
 export function About() {
   const [isVisible, setIsVisible] = useState(false)

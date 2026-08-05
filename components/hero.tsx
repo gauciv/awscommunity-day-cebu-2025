@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Calendar, MapPin, Users, ChevronDown, Zap, ExternalLink } from "lucide-react"
+import { Calendar, MapPin, Users, ChevronDown } from "lucide-react"
 import { useEffect, useState } from "react"
 import { CountdownClock } from "./countdown-clock"
 

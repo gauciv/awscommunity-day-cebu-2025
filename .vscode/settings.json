@@ -19,5 +19,6 @@
   },
   "editor.quickSuggestions": {
     "strings": true
-  }
+  },
+  "typescript.autoClosingTags": false
 }
